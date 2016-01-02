@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "owi-arm-dotnet", "owi-arm-d
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "owi-arm-dotnet-test", "owi-arm-dotnet-test\owi-arm-dotnet-test.csproj", "{6585B3A7-E8AC-44AB-B024-E601C28A8112}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sample.app", "sample.app\sample.app.csproj", "{67B22398-2233-4547-9882-1B283010EE41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6585B3A7-E8AC-44AB-B024-E601C28A8112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6585B3A7-E8AC-44AB-B024-E601C28A8112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6585B3A7-E8AC-44AB-B024-E601C28A8112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67B22398-2233-4547-9882-1B283010EE41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B22398-2233-4547-9882-1B283010EE41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B22398-2233-4547-9882-1B283010EE41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B22398-2233-4547-9882-1B283010EE41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
