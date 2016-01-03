@@ -3,19 +3,33 @@ using System.Collections;
 
 namespace owi_arm_dotnet
 {
-    public class Command
+    public class Command : ICommand
     {
         BitArray ledArray = new BitArray(8);
         BitArray elbowArray = new BitArray(8);
 
         public byte LedByte
         {
-            get { return ConvertToByte(this.ledArray); }
+            get
+            {
+                return ConvertToByte(this.ledArray);
+            }
         }
 
-        public byte ElbowByte
+        public byte ArmByte
         {
-            get { return ConvertToByte(this.elbowArray); }
+            get
+            {
+                return ConvertToByte(this.elbowArray);
+            }
+        }
+
+        public byte BaseByte
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void LedOn()

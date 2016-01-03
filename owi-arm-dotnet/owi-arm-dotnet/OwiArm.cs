@@ -19,14 +19,14 @@ namespace owi_arm_dotnet
            } 
         }
 
-        public void MoveArm(ICommandPacket packet)
+        public void MoveArm(ICommand command)
         {
             if (this.owiUsbConnection.IsOpen == false)
             {
                 throw new InvalidOperationException("Unable to send command because the connection is not open.");
             }
 
-            this.owiUsbConnection.Send(packet.ArmCommand.Value, packet.BaseOfArmCommand.Value, 0);
+            this.owiUsbConnection.Send(command.ArmByte, command.BaseByte, command.LedByte);
         }
 
         public void Disconnect()

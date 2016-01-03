@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="OwiArmTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CommandPacketTest.cs" />
     <Compile Include="CommandTest.cs" />
   </ItemGroup>
   <ItemGroup>

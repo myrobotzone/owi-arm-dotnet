@@ -1,13 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace owi_arm_dotnet
 {
     public interface ICommand
     {
-        byte Value { get; }
+        byte ArmByte { get; }
+
+        byte LedByte { get; }
+
+        byte BaseByte { get; }
+
+        void ElbowDown();
+
+        void ElbowStop();
+
+        void ElbowUp();
+
+        void LedOff();
+
+        void LedOn();
     }
 }

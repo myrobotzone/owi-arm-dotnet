@@ -7,6 +7,6 @@ namespace owi_arm_dotnet
 
         void Disconnect();
 
-        void MoveArm(ICommandPacket packet);
+        void MoveArm(ICommand command);
     }
 }

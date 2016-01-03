@@ -45,20 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="LedCommands.cs" />
-    <Compile Include="LedCommand.cs" />
-    <Compile Include="ArmCommand.cs" />
-    <Compile Include="BaseOfArmCommand.cs" />
     <Compile Include="ICommand.cs" />
-    <Compile Include="ICommandPacket.cs" />
     <Compile Include="IOwiArm.cs" />
     <Compile Include="IOwiUsbConnection.cs" />
     <Compile Include="OwiArm.cs" />
     <Compile Include="OwiUsbConnection.cs" />
-    <Compile Include="CommandPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ArmCommands.cs" />
-    <Compile Include="BaseOfArmCommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

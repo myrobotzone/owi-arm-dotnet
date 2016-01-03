@@ -64,28 +64,28 @@ namespace owi_arm_dotnet_test
             connectionMock.SetupGet(mock => mock.IsOpen).Returns(false);
 
             var arm = new OwiArm(connectionMock.Object);
-            arm.MoveArm(new CommandPacket(ArmCommands.GripClose));
+            arm.MoveArm(new Command());
         }
 
         [TestMethod]
         public void MoveArm_SendsCommand()
         {
-            var expectedArmCommand = ArmCommands.GripClose;
-            var expectedBaseOfArmCommand = BaseOfArmCommands.RotateCounterClockwise;
-            var expectedLedCommand = LedCommands.On;
+            const byte expectedArmByte = 4;
+            const byte expectedBaseOfArmByte = 6;
+            const byte expectedLedByte = 2;
 
             var connection = new Mock<IOwiUsbConnection>();
             connection.SetupGet(mock => mock.IsOpen).Returns(true);
 
-            var packetMock = new Mock<ICommandPacket>();
-            packetMock.SetupGet(mock => mock.ArmCommand).Returns(expectedArmCommand);
-            packetMock.SetupGet(mock => mock.BaseOfArmCommand).Returns(expectedBaseOfArmCommand);
-            packetMock.SetupGet(mock => mock.LedCommand).Returns(expectedLedCommand);
+            var packetMock = new Mock<ICommand>();
+            packetMock.SetupGet(mock => mock.ArmByte).Returns(expectedArmByte);
+            packetMock.SetupGet(mock => mock.BaseByte).Returns(expectedBaseOfArmByte);
+            packetMock.SetupGet(mock => mock.LedByte).Returns(expectedLedByte);
 
             var arm = new OwiArm(connection.Object);
             arm.MoveArm(packetMock.Object);
 
-            connection.Verify(mock => mock.Send(expectedArmCommand.Value, expectedBaseOfArmCommand.Value, expectedLedCommand.Value), Times.Once);
+            connection.Verify(mock => mock.Send(expectedArmByte, expectedBaseOfArmByte, expectedLedByte), Times.Once);
         }
     }
 }

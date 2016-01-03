@@ -35,7 +35,7 @@ namespace owi_arm_dotnet_test
 
             command.ElbowUp();
 
-            Assert.IsTrue(IsBitSet(command.ElbowByte, 4));
+            Assert.IsTrue(IsBitSet(command.ArmByte, 4));
         }
 
         [TestMethod]
@@ -46,8 +46,8 @@ namespace owi_arm_dotnet_test
             command.ElbowUp();
             command.ElbowDown();
             
-            Assert.IsFalse(IsBitSet(command.ElbowByte, 4));
-            Assert.IsTrue(IsBitSet(command.ElbowByte, 5));
+            Assert.IsFalse(IsBitSet(command.ArmByte, 4));
+            Assert.IsTrue(IsBitSet(command.ArmByte, 5));
         }
 
         [TestMethod]
@@ -58,8 +58,8 @@ namespace owi_arm_dotnet_test
             command.ElbowDown();
             command.ElbowStop();
 
-            Assert.IsFalse(IsBitSet(command.ElbowByte, 4));
-            Assert.IsFalse(IsBitSet(command.ElbowByte, 5));
+            Assert.IsFalse(IsBitSet(command.ArmByte, 4));
+            Assert.IsFalse(IsBitSet(command.ArmByte, 5));
         }
 
         bool IsBitSet(byte b, int pos)
