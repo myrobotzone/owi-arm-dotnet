@@ -20,8 +20,9 @@ namespace sample.app.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            this.StopCommand = new RelayCommand(() => this.OnStopCommand());
             this.ConnectCommand = new RelayCommand(() => this.OnConnectCommand());
+            this.LedCommand = new RelayCommand<bool>(state => this.OnLedCommand(state));
+            this.StopCommand = new RelayCommand(() => this.OnStopCommand());
         }
 
         public override void Cleanup()
@@ -98,21 +99,11 @@ namespace sample.app.ViewModel
             }
         }
 
+        public ICommand ConnectCommand { get; private set; }
+
+        public ICommand LedCommand { get; private set; }
+
         public ICommand StopCommand { get; private set; }
-
-        public ICommand ConnectCommand { get; set; }
-
-        private void OnStopCommand()
-        {
-            this.gripperSliderValue = 0;
-            this.RaisePropertyChanged(() => GripperSliderValue);
-
-            this.elbowSliderValue = 0;
-            this.RaisePropertyChanged(() => ElbowSliderValue);
-
-            this.command.StopAllMovements();
-            this.SendCommandToRobotArm();
-        }
 
         private void OnConnectCommand()
         {
@@ -124,6 +115,28 @@ namespace sample.app.ViewModel
             {
                 this.LogOutput += string.Format("Unable to connect to arm: {0}{1}", e.Message, Environment.NewLine);
             }
+        }
+
+        private void OnLedCommand(bool isToggled)
+        {           
+            if (isToggled)
+                this.command.LedOn();
+            else
+                this.command.LedOff();
+
+            this.SendCommandToRobotArm();
+        }
+
+        private void OnStopCommand()
+        {
+            this.gripperSliderValue = 0;
+            this.RaisePropertyChanged(() => GripperSliderValue);
+
+            this.elbowSliderValue = 0;
+            this.RaisePropertyChanged(() => ElbowSliderValue);
+
+            this.command.StopAllMovements();
+            this.SendCommandToRobotArm();
         }
     }
 }

@@ -33,56 +33,65 @@ namespace owi_arm_dotnet
             }
         }
 
-        public void StopAllMovements()
+        public IOwiCommand StopAllMovements()
         {
             armArray.SetAll(false);
             baseArray.SetAll(false);
+            return this;
         }
 
-        public void LedOn()
+        public IOwiCommand LedOn()
         {
             this.ledArray.Set(0, true);
+            return this;
         }
 
-        public void LedOff()
+        public IOwiCommand LedOff()
         {
             this.ledArray.Set(0, false);
+            return this;
         }
 
-        public void GripperOpen()
+        public IOwiCommand GripperOpen()
         {
             this.GripperStop();
             this.armArray.Set(1, true);
+            return this;
         }
 
-        public void GripperClose()
+        public IOwiCommand GripperClose()
         {
             this.GripperStop();
             this.armArray.Set(0, true);
+            return this;
         }
 
-        public void GripperStop()
+        public IOwiCommand GripperStop()
         {
             this.armArray.Set(0, false);
             this.armArray.Set(1, false);
+            return this;
         }
 
-        public void ElbowUp()
+        public IOwiCommand ElbowUp()
         {
             this.ElbowStop();
             this.armArray.Set(4, true);
+            return this;
         }
 
-        public void ElbowDown()
+        public IOwiCommand ElbowDown()
         {
             this.ElbowStop();
             this.armArray.Set(5, true);
+            return this;
         }
 
-        public void ElbowStop()
+        public IOwiCommand ElbowStop()
         {
             this.armArray.Set(4, false);
             this.armArray.Set(5, false);
+            return this;
         }
 
         private byte ConvertToByte(BitArray bits)

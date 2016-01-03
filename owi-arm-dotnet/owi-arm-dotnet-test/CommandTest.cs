@@ -22,8 +22,7 @@ namespace owi_arm_dotnet_test
         {
             var command = new OwiCommand();
 
-            command.LedOn();
-            command.LedOff();
+            command.LedOn().LedOff();
 
             Assert.IsFalse(IsBitSet(command.LedByte, 0));
         }
@@ -33,8 +32,7 @@ namespace owi_arm_dotnet_test
         {
             var command = new OwiCommand();
 
-            command.GripperStop();
-            command.GripperClose();
+            command.GripperStop().GripperClose();
 
             Assert.IsTrue(IsBitSet(command.ArmByte, 0));
         }
@@ -44,8 +42,7 @@ namespace owi_arm_dotnet_test
         {
             var command = new OwiCommand();
 
-            command.GripperClose();
-            command.GripperOpen();
+            command.GripperClose().GripperOpen();
 
             Assert.IsFalse(IsBitSet(command.ArmByte, 0));
             Assert.IsTrue(IsBitSet(command.ArmByte, 1));
@@ -66,8 +63,7 @@ namespace owi_arm_dotnet_test
         {
             var command = new OwiCommand();
 
-            command.ElbowUp();
-            command.ElbowDown();
+            command.ElbowUp().ElbowDown();
 
             Assert.IsFalse(IsBitSet(command.ArmByte, 4));
             Assert.IsTrue(IsBitSet(command.ArmByte, 5));
@@ -78,8 +74,7 @@ namespace owi_arm_dotnet_test
         {
             var command = new OwiCommand();
 
-            command.ElbowDown();
-            command.ElbowStop();
+            command.ElbowDown().ElbowStop();
 
             Assert.IsFalse(IsBitSet(command.ArmByte, 4));
             Assert.IsFalse(IsBitSet(command.ArmByte, 5));
@@ -90,9 +85,7 @@ namespace owi_arm_dotnet_test
         {
             var command = new OwiCommand();
 
-            command.LedOn();
-            command.ElbowUp();
-            command.StopAllMovements();
+            command.LedOn().ElbowUp().StopAllMovements();
 
             Assert.AreNotEqual(0, command.LedByte);
             Assert.AreEqual(0, command.ArmByte);

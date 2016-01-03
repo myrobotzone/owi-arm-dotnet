@@ -9,22 +9,22 @@ namespace owi_arm_dotnet
 
         byte BaseByte { get; }
 
-        void StopAllMovements();
+        IOwiCommand StopAllMovements();
 
-        void GripperOpen();
+        IOwiCommand GripperOpen();
 
-        void GripperClose();
+        IOwiCommand GripperClose();
 
-        void GripperStop();
+        IOwiCommand GripperStop();
 
-        void ElbowUp();
+        IOwiCommand ElbowUp();
 
-        void ElbowDown();
+        IOwiCommand ElbowDown();
 
-        void ElbowStop();
+        IOwiCommand ElbowStop();
 
-        void LedOff();
+        IOwiCommand LedOff();
 
-        void LedOn();
+        IOwiCommand LedOn();
     }
 }

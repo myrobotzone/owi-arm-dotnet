@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="LED"/>
-            <Button Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="On/off"/>
+            <ToggleButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="On/off" Command="{Binding LedCommand}"  CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"/>
             <Label Grid.Column="0" Grid.Row="1" Content="Gripper"/>
 
             <Label Grid.Column="0" Grid.Row="2" Content="Wrist"/>
