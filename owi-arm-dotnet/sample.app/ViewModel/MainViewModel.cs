@@ -8,6 +8,10 @@ namespace sample.app.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        private int gripperSliderValue;
+        private int elbowSliderValue;
+        private string logOutput;
+
         private IOwiCommand command = new OwiCommand();
         private IOwiArm arm = new OwiArm();
 
@@ -20,8 +24,12 @@ namespace sample.app.ViewModel
             this.ConnectCommand = new RelayCommand(() => this.OnConnectCommand());
         }
 
-        private int elbowSliderValue;
-        private string logOutput;
+        public override void Cleanup()
+        {
+            // TODO: why is this not being called by the MVVM light framework?
+            base.Cleanup();
+            this.arm.Disconnect();
+        }
 
         public string LogOutput
         {
@@ -36,6 +44,26 @@ namespace sample.app.ViewModel
             }
         }
 
+        public int GripperSliderValue
+        {
+            get
+            {
+                return this.gripperSliderValue;
+            }
+            set
+            {
+                this.gripperSliderValue = value;
+                if (this.gripperSliderValue == -1)
+                    this.command.GripperClose();
+                else if (this.gripperSliderValue == 1)
+                    this.command.GripperOpen();
+                else
+                    this.command.GripperStop();
+
+                this.RaisePropertyChanged(() => GripperSliderValue);
+                this.SendCommandToRobotArm();
+            }
+        }
 
         public int ElbowSliderValue
         {
@@ -76,6 +104,9 @@ namespace sample.app.ViewModel
 
         private void OnStopCommand()
         {
+            this.gripperSliderValue = 0;
+            this.RaisePropertyChanged(() => GripperSliderValue);
+
             this.elbowSliderValue = 0;
             this.RaisePropertyChanged(() => ElbowSliderValue);
 

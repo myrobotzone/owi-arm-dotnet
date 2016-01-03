@@ -11,11 +11,17 @@ namespace owi_arm_dotnet
 
         void StopAllMovements();
 
+        void GripperOpen();
+
+        void GripperClose();
+
+        void GripperStop();
+
+        void ElbowUp();
+
         void ElbowDown();
 
         void ElbowStop();
-
-        void ElbowUp();
 
         void LedOff();
 

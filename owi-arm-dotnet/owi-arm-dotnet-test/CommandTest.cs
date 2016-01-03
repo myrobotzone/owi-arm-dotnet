@@ -29,6 +29,29 @@ namespace owi_arm_dotnet_test
         }
 
         [TestMethod]
+        public void GripperClose_GriperIsStopped_GripperCloseBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.GripperStop();
+            command.GripperClose();
+
+            Assert.IsTrue(IsBitSet(command.ArmByte, 0));
+        }
+
+        [TestMethod]
+        public void GripperOpen_GriperIsClosing_GripperOpenBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.GripperClose();
+            command.GripperOpen();
+
+            Assert.IsFalse(IsBitSet(command.ArmByte, 0));
+            Assert.IsTrue(IsBitSet(command.ArmByte, 1));
+        }
+
+        [TestMethod]
         public void ElbowUp_ElbowWasStoped_ElbowUpBitIsSet()
         {
             var command = new OwiCommand();
@@ -45,7 +68,7 @@ namespace owi_arm_dotnet_test
 
             command.ElbowUp();
             command.ElbowDown();
-            
+
             Assert.IsFalse(IsBitSet(command.ArmByte, 4));
             Assert.IsTrue(IsBitSet(command.ArmByte, 5));
         }

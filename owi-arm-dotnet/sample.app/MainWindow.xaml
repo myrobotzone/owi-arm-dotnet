@@ -29,7 +29,7 @@
             <Label Grid.Column="0" Grid.Row="3" Content="Elbow"/>
             <Label Grid.Column="0" Grid.Row="4" Content="Shoulder"/>
             <Label Grid.Column="0" Grid.Row="5" Content="Base"/>
-            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" LeftText="close" RightText="open"/>
+            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" LeftText="close" RightText="open" SliderValue="{Binding GripperSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <local:MovementSelector Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" LeftText="down" RightText="up"/>
             <local:MovementSelector Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding ElbowSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding StopCommand}">Stop</Button>

@@ -49,6 +49,24 @@ namespace owi_arm_dotnet
             this.ledArray.Set(0, false);
         }
 
+        public void GripperOpen()
+        {
+            this.GripperStop();
+            this.armArray.Set(1, true);
+        }
+
+        public void GripperClose()
+        {
+            this.GripperStop();
+            this.armArray.Set(0, true);
+        }
+
+        public void GripperStop()
+        {
+            this.armArray.Set(0, false);
+            this.armArray.Set(1, false);
+        }
+
         public void ElbowUp()
         {
             this.ElbowStop();
