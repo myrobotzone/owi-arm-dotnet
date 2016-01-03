@@ -1,7 +1,7 @@
 ﻿using System;
 namespace owi_arm_dotnet
 {
-    public interface ICommand
+    public interface IOwiCommand
     {
         byte ArmByte { get; }
 

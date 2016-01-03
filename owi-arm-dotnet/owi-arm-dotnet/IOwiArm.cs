@@ -1,12 +1,12 @@
 ﻿using System;
 namespace owi_arm_dotnet
 {
-    interface IOwiArm
+    public interface IOwiArm
     {
         void Connect();
 
         void Disconnect();
 
-        void MoveArm(ICommand command);
+        void SendCommand(IOwiCommand command);
     }
 }

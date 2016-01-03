@@ -6,6 +6,11 @@ namespace owi_arm_dotnet
     {
         private IOwiUsbConnection owiUsbConnection;
 
+        public OwiArm()
+        {
+            this.owiUsbConnection = new OwiUsbConnection();
+        }
+
         public OwiArm(IOwiUsbConnection owiUsbConnection)
         {
             this.owiUsbConnection = owiUsbConnection;
@@ -19,7 +24,7 @@ namespace owi_arm_dotnet
            } 
         }
 
-        public void MoveArm(ICommand command)
+        public void SendCommand(IOwiCommand command)
         {
             if (this.owiUsbConnection.IsOpen == false)
             {

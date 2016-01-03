@@ -4,7 +4,8 @@
         xmlns:local="clr-namespace:sample.app" x:Class="sample.app.MainWindow"
         Title="Robot Arm Sample App" Height="350" Width="525" x:Name="myWindow" 
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    <Grid Margin="0,0,-8,0">
+    <StackPanel Orientation="Vertical">
+        <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Right" VerticalAlignment="Center">Connect to Arm</Button>
         <Grid HorizontalAlignment="Left" Height="170" Margin="10,10,0,0" VerticalAlignment="Top" Width="497">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -33,5 +34,8 @@
             <local:MovementSelector Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding ElbowSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding StopCommand}">Stop</Button>
         </Grid>
-    </Grid>
+        <ScrollViewer>
+            <TextBlock Text="{Binding LogOutput}" Height="90" TextWrapping="Wrap"/>
+        </ScrollViewer>
+    </StackPanel>
 </Window>

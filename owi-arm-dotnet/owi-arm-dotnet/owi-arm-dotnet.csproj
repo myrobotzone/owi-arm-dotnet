@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command.cs" />
-    <Compile Include="ICommand.cs" />
+    <Compile Include="OwiCommand.cs" />
+    <Compile Include="IOwiCommand.cs" />
     <Compile Include="IOwiArm.cs" />
     <Compile Include="IOwiUsbConnection.cs" />
     <Compile Include="OwiArm.cs" />

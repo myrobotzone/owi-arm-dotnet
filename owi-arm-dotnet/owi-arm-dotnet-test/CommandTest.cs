@@ -9,7 +9,7 @@ namespace owi_arm_dotnet_test
         [TestMethod]
         public void LedOn_LedWasOff_LedBitIsSet()
         {
-            var command = new Command();
+            var command = new OwiCommand();
 
             command.LedOn();
 
@@ -20,7 +20,7 @@ namespace owi_arm_dotnet_test
         [TestMethod]
         public void LedOff_LedWasOn_LedBitIsNotSet()
         {
-            var command = new Command();
+            var command = new OwiCommand();
 
             command.LedOn();
             command.LedOff();
@@ -31,7 +31,7 @@ namespace owi_arm_dotnet_test
         [TestMethod]
         public void ElbowUp_ElbowWasStoped_ElbowUpBitIsSet()
         {
-            var command = new Command();
+            var command = new OwiCommand();
 
             command.ElbowUp();
 
@@ -41,7 +41,7 @@ namespace owi_arm_dotnet_test
         [TestMethod]
         public void ElbowDown_ElbowWasMovingUp_ElbowDownBitIsSet()
         {
-            var command = new Command();
+            var command = new OwiCommand();
 
             command.ElbowUp();
             command.ElbowDown();
@@ -53,7 +53,7 @@ namespace owi_arm_dotnet_test
         [TestMethod]
         public void ElbowStop_ElbowWasDown_ElbowBitsAreReset()
         {
-            var command = new Command();
+            var command = new OwiCommand();
 
             command.ElbowDown();
             command.ElbowStop();

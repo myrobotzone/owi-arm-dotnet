@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace owi_arm_dotnet
 {
-    public class Command : ICommand
+    public class OwiCommand : IOwiCommand
     {
         BitArray ledArray = new BitArray(8);
         BitArray elbowArray = new BitArray(8);
