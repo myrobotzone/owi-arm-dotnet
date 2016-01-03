@@ -9,6 +9,8 @@ namespace owi_arm_dotnet
 
         byte BaseByte { get; }
 
+        void StopAllMovements();
+
         void ElbowDown();
 
         void ElbowStop();

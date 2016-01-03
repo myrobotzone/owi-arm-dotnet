@@ -6,7 +6,8 @@ namespace owi_arm_dotnet
     public class OwiCommand : IOwiCommand
     {
         BitArray ledArray = new BitArray(8);
-        BitArray elbowArray = new BitArray(8);
+        BitArray armArray = new BitArray(8);
+        BitArray baseArray = new BitArray(8);
 
         public byte LedByte
         {
@@ -20,7 +21,7 @@ namespace owi_arm_dotnet
         {
             get
             {
-                return ConvertToByte(this.elbowArray);
+                return ConvertToByte(this.armArray);
             }
         }
 
@@ -28,8 +29,14 @@ namespace owi_arm_dotnet
         {
             get
             {
-                throw new NotImplementedException();
+                return ConvertToByte(this.baseArray);
             }
+        }
+
+        public void StopAllMovements()
+        {
+            armArray.SetAll(false);
+            baseArray.SetAll(false);
         }
 
         public void LedOn()
@@ -45,19 +52,19 @@ namespace owi_arm_dotnet
         public void ElbowUp()
         {
             this.ElbowStop();
-            this.elbowArray.Set(4, true);
+            this.armArray.Set(4, true);
         }
 
         public void ElbowDown()
         {
             this.ElbowStop();
-            this.elbowArray.Set(5, true);
+            this.armArray.Set(5, true);
         }
 
         public void ElbowStop()
         {
-            this.elbowArray.Set(4, false);
-            this.elbowArray.Set(5, false);
+            this.armArray.Set(4, false);
+            this.armArray.Set(5, false);
         }
 
         private byte ConvertToByte(BitArray bits)

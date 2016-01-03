@@ -62,6 +62,20 @@ namespace owi_arm_dotnet_test
             Assert.IsFalse(IsBitSet(command.ArmByte, 5));
         }
 
+        [TestMethod]
+        public void StopAllMovements_LedIsOneAndArmIsMoving_LedBitIsOnButMovementsBitsAreReset()
+        {
+            var command = new OwiCommand();
+
+            command.LedOn();
+            command.ElbowUp();
+            command.StopAllMovements();
+
+            Assert.AreNotEqual(0, command.LedByte);
+            Assert.AreEqual(0, command.ArmByte);
+            Assert.AreEqual(0, command.BaseByte);
+        }
+
         bool IsBitSet(byte b, int pos)
         {
             return (b & (1 << pos)) != 0;
