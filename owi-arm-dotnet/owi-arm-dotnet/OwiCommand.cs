@@ -73,6 +73,26 @@ namespace owi_arm_dotnet
             return this;
         }
 
+        public IOwiCommand WristUp()
+        {
+            this.armArray.Set(2, true);
+            return this;
+        }
+
+        public IOwiCommand WristDown()
+        {
+            this.WristStop();
+            this.armArray.Set(3, true);
+            return this;
+        }
+
+        public IOwiCommand WristStop()
+        {
+            this.armArray.Set(2, false);
+            this.armArray.Set(3, false);
+            return this;
+        }
+
         public IOwiCommand ElbowUp()
         {
             this.ElbowStop();

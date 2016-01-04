@@ -49,6 +49,37 @@ namespace owi_arm_dotnet_test
         }
 
         [TestMethod]
+        public void WristUp_WristIsStopped_WristUpBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.WristUp();
+            
+            Assert.IsTrue(IsBitSet(command.ArmByte, 2));
+        }
+
+        [TestMethod]
+        public void WristDown_WristWasMovingUp_WristDownBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.WristUp().WristDown();
+
+            Assert.IsFalse(IsBitSet(command.ArmByte, 2));
+            Assert.IsTrue(IsBitSet(command.ArmByte, 3));
+        }
+
+        public void WristStop_WristWasMovingUp_WristDownBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.WristUp().WristStop();
+
+            Assert.IsFalse(IsBitSet(command.ArmByte, 2));
+            Assert.IsFalse(IsBitSet(command.ArmByte, 3));
+        }
+
+        [TestMethod]
         public void ElbowUp_ElbowWasStoped_ElbowUpBitIsSet()
         {
             var command = new OwiCommand();

@@ -17,6 +17,12 @@ namespace owi_arm_dotnet
 
         IOwiCommand GripperStop();
 
+        IOwiCommand WristUp();
+
+        IOwiCommand WristDown();
+
+        IOwiCommand WristStop();
+
         IOwiCommand ElbowUp();
 
         IOwiCommand ElbowDown();
