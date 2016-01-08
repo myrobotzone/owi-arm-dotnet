@@ -54,7 +54,7 @@ namespace owi_arm_dotnet_test
             var command = new OwiCommand();
 
             command.WristUp();
-            
+
             Assert.IsTrue(IsBitSet(command.ArmByte, 2));
         }
 
@@ -109,6 +109,70 @@ namespace owi_arm_dotnet_test
 
             Assert.IsFalse(IsBitSet(command.ArmByte, 4));
             Assert.IsFalse(IsBitSet(command.ArmByte, 5));
+        }
+
+        [TestMethod]
+        public void ShoulderUp_ShoulderWasStoped_ShoulderUpBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.ShoulderUp();
+
+            Assert.IsTrue(IsBitSet(command.ArmByte, 6));
+        }
+
+        [TestMethod]
+        public void ShoulderDown_ShoulderWasMovingUp_ShoulderDownBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.ShoulderUp().ShoulderDown();
+
+            Assert.IsFalse(IsBitSet(command.ArmByte, 6));
+            Assert.IsTrue(IsBitSet(command.ArmByte, 7));
+        }
+
+        [TestMethod]
+        public void ShoulderStop_ShoulderWasDown_ShoulderBitsAreReset()
+        {
+            var command = new OwiCommand();
+
+            command.ShoulderDown().ShoulderStop();
+
+            Assert.IsFalse(IsBitSet(command.ArmByte, 6));
+            Assert.IsFalse(IsBitSet(command.ArmByte, 7));
+        }
+
+        [TestMethod]
+        public void BaseRotateClockwise_BaseRotateWasStoped_BaseRotateClockwiseBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.BaseRotateClockwise();
+
+            Assert.IsTrue(IsBitSet(command.BaseByte, 1));
+        }
+
+        [TestMethod]
+        public void BaseRotateCounterClockwise_BaseRotateWasMovingClockwise_BaseRotateCounterClockwiseBitIsSet()
+        {
+            var command = new OwiCommand();
+
+            command.BaseRotateClockwise().BaseRotateCounterClockwise();
+
+            Assert.IsFalse(IsBitSet(command.BaseByte, 1));
+            Assert.IsTrue(IsBitSet(command.BaseByte, 0));
+        }
+
+        [TestMethod]
+        public void BaseRotateStop_BaseRotateWasClockwise_BaseRotateBitsAreReset()
+        {
+            var command = new OwiCommand();
+
+            command.BaseRotateClockwise().BaseRotateStop();
+
+            Assert.IsFalse(IsBitSet(command.BaseByte, 0));
+            Assert.IsFalse(IsBitSet(command.BaseByte, 1));
         }
 
         [TestMethod]

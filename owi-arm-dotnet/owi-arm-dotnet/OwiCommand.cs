@@ -114,6 +114,48 @@ namespace owi_arm_dotnet
             return this;
         }
 
+        public IOwiCommand ShoulderUp()
+        {
+            this.ShoulderStop();
+            this.armArray.Set(6, true);
+            return this;
+        }
+
+        public IOwiCommand ShoulderDown()
+        {
+            this.ShoulderStop();
+            this.armArray.Set(7, true);
+            return this;
+        }
+
+        public IOwiCommand ShoulderStop()
+        {
+            this.armArray.Set(6, false);
+            this.armArray.Set(7, false);
+            return this;
+        }
+
+        public IOwiCommand BaseRotateClockwise()
+        {
+            this.BaseRotateStop();
+            this.baseArray.Set(1, true);
+            return this;
+        }
+
+        public IOwiCommand BaseRotateCounterClockwise()
+        {
+            this.BaseRotateStop();
+            this.baseArray.Set(0, true);
+            return this;
+        }
+
+        public IOwiCommand BaseRotateStop()
+        {
+            this.baseArray.Set(0, false);
+            this.baseArray.Set(1, false);
+            return this;
+        }
+
         private byte ConvertToByte(BitArray bits)
         {
             if (bits.Count != 8)

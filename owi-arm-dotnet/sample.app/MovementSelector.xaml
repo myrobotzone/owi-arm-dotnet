@@ -12,6 +12,5 @@
             <Slider TickPlacement="BottomRight" Maximum="1" Minimum="-1" Width="100" SmallChange="1" IsSnapToTickEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" Value="{Binding Path=SliderValue, ElementName=uc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="{Binding Path=RightText, ElementName=uc}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </StackPanel>
-
     </Grid>
 </UserControl>

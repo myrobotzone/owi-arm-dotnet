@@ -9,11 +9,20 @@ namespace sample.app.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private int gripperSliderValue;
+        private int wristSliderValue;
         private int elbowSliderValue;
+        private int shoulderSliderValue;
+        private int baseSliderValue;
         private string logOutput;
 
         private IOwiCommand command = new OwiCommand();
         private IOwiArm arm = new OwiArm();
+
+        private MovementCommander gripperCommander;
+        private MovementCommander wristCommander;
+        private MovementCommander elbowCommander;
+        private MovementCommander shoulderCommander;
+        private MovementCommander baseCommander;
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -23,6 +32,12 @@ namespace sample.app.ViewModel
             this.ConnectCommand = new RelayCommand(() => this.OnConnectCommand());
             this.LedCommand = new RelayCommand<bool>(state => this.OnLedCommand(state));
             this.StopCommand = new RelayCommand(() => this.OnStopCommand());
+
+            this.gripperCommander = new MovementCommander(c => c.GripperClose(), c => c.GripperStop(), c => c.GripperOpen());
+            this.wristCommander = new MovementCommander(c => c.WristDown(), c => c.WristStop(), c => c.WristUp());
+            this.elbowCommander = new MovementCommander(c => c.ElbowDown(), c => c.ElbowStop(), c => c.ElbowUp());
+            this.shoulderCommander = new MovementCommander(c => c.ShoulderDown(), c => c.ShoulderStop(), c => c.ShoulderUp());
+            this.baseCommander = new MovementCommander(c => c.BaseRotateCounterClockwise(), c => c.BaseRotateStop(), c => c.BaseRotateClockwise());
         }
 
         public override void Cleanup()
@@ -53,16 +68,27 @@ namespace sample.app.ViewModel
             }
             set
             {
-                this.gripperSliderValue = value;
-                if (this.gripperSliderValue == -1)
-                    this.command.GripperClose();
-                else if (this.gripperSliderValue == 1)
-                    this.command.GripperOpen();
-                else
-                    this.command.GripperStop();
-
-                this.RaisePropertyChanged(() => GripperSliderValue);
+                this.gripperCommander.ApplyMovement(value, this.command);
                 this.SendCommandToRobotArm();
+
+                this.gripperSliderValue = value;
+                this.RaisePropertyChanged(() => GripperSliderValue);
+            }
+        }
+
+        public int WristSliderValue
+        {
+            get
+            {
+                return this.wristSliderValue;
+            }
+            set
+            {
+                this.wristCommander.ApplyMovement(value, this.command);
+                this.SendCommandToRobotArm();
+
+                this.wristSliderValue = value;
+                this.RaisePropertyChanged(() => WristSliderValue);
             }
         }
 
@@ -74,16 +100,43 @@ namespace sample.app.ViewModel
             }
             set
             {
-                this.elbowSliderValue = value;
-                if (this.elbowSliderValue == -1)
-                    this.command.ElbowDown();
-                else if (this.elbowSliderValue == 1)
-                    this.command.ElbowUp();
-                else
-                    this.command.ElbowStop();
-
-                this.RaisePropertyChanged(() => ElbowSliderValue);
+                this.elbowCommander.ApplyMovement(value, this.command);
                 this.SendCommandToRobotArm();
+
+                this.elbowSliderValue = value;
+                this.RaisePropertyChanged(() => ElbowSliderValue);
+            }
+        }
+
+        public int ShoulderSliderValue
+        {
+            get
+            {
+                return this.shoulderSliderValue;
+            }
+            set
+            {
+                this.shoulderCommander.ApplyMovement(value, this.command);
+                this.SendCommandToRobotArm();
+
+                this.shoulderSliderValue = value;
+                this.RaisePropertyChanged(() => ShoulderSliderValue);
+            }
+        }
+
+        public int BaseSliderValue
+        {
+            get
+            {
+                return this.baseSliderValue;
+            }
+            set
+            {
+                this.baseCommander.ApplyMovement(value, this.command);
+                this.SendCommandToRobotArm();
+
+                this.baseSliderValue = value;
+                this.RaisePropertyChanged(() => BaseSliderValue);
             }
         }
 
@@ -118,7 +171,7 @@ namespace sample.app.ViewModel
         }
 
         private void OnLedCommand(bool isToggled)
-        {           
+        {
             if (isToggled)
                 this.command.LedOn();
             else

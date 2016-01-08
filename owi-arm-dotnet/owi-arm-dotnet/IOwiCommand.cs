@@ -29,6 +29,18 @@ namespace owi_arm_dotnet
 
         IOwiCommand ElbowStop();
 
+        IOwiCommand ShoulderUp();
+
+        IOwiCommand ShoulderDown();
+
+        IOwiCommand ShoulderStop();
+
+        IOwiCommand BaseRotateClockwise();
+
+        IOwiCommand BaseRotateCounterClockwise();
+
+        IOwiCommand BaseRotateStop();
+
         IOwiCommand LedOff();
 
         IOwiCommand LedOn();
