@@ -7,9 +7,9 @@ A .NET library that implements the [OWI-007 Robotic Arm parallel port protocol](
 Before operating the arm, ensure that you have the correct USB driver installed. Connect the arm to your computer using the supplied usb cable. Turn the arm on then install the WinUSB driver using [Zadig](http://zadig.akeo.ie/).
 
 ## Code snippet
-The following code snippit demonstrates the API. It will at the same time and for 2 seconds, rotate the base counter-clockwise, move the shoulder up and turn on the LED. After which all movment is stopped and the LED is turned off.
+The following code snippit demonstrates the API. It will at the same time and for 2 seconds, rotate the base clockwise, move the shoulder up and turn on the LED. After which all movment is stopped and the LED is turned off.
 
-```c#
+```csharp
 IOwiArm arm = new OwiArm();
 arm.Connect();
 
