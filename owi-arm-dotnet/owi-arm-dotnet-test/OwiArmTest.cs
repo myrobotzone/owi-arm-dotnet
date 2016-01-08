@@ -2,6 +2,7 @@
 using Moq;
 using owi_arm_dotnet;
 using System;
+using System.Threading;
 
 namespace owi_arm_dotnet_test
 {
@@ -97,6 +98,24 @@ namespace owi_arm_dotnet_test
             arm.SendCommand(packetMock.Object);
 
             connection.Verify(mock => mock.Send(expectedArmByte, expectedBaseOfArmByte, expectedLedByte), Times.Once);
+        }
+
+        [TestMethod]
+        [Ignore]
+        public void IntegrationTestThatRequiresAmr()
+        {
+            IOwiArm arm = new OwiArm();
+            arm.Connect();
+
+
+            IOwiCommand command = new OwiCommand().BaseRotateClockwise().ShoulderUp().LedOn();
+
+            arm.SendCommand(command);
+            Thread.Sleep(2000);
+
+            arm.SendCommand(command.StopAllMovements().LedOff());
+
+            arm.Disconnect();
         }
     }
 }
