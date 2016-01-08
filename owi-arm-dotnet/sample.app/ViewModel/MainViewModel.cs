@@ -47,6 +47,14 @@ namespace sample.app.ViewModel
             this.arm.Disconnect();
         }
 
+        public bool IsArmConnected
+        {
+            get
+            {
+                return this.arm.IsConnected;
+            }
+        }
+
         public string LogOutput
         {
             get
@@ -163,6 +171,7 @@ namespace sample.app.ViewModel
             try
             {
                 this.arm.Connect();
+                this.RaisePropertyChanged(() => IsArmConnected);
             }
             catch (System.Exception e)
             {
@@ -185,8 +194,17 @@ namespace sample.app.ViewModel
             this.gripperSliderValue = 0;
             this.RaisePropertyChanged(() => GripperSliderValue);
 
+            this.wristSliderValue = 0;
+            this.RaisePropertyChanged(() => WristSliderValue);
+
             this.elbowSliderValue = 0;
             this.RaisePropertyChanged(() => ElbowSliderValue);
+
+            this.shoulderSliderValue = 0;
+            this.RaisePropertyChanged(() => ShoulderSliderValue);
+
+            this.baseSliderValue = 0;
+            this.RaisePropertyChanged(() => BaseSliderValue);
 
             this.command.StopAllMovements();
             this.SendCommandToRobotArm();

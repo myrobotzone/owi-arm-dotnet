@@ -22,19 +22,19 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="LED"/>
-            <ToggleButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="On/off" Command="{Binding LedCommand}"  CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Height="20" Margin="0,2" Width="39"/>
+            <ToggleButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="On/off" Command="{Binding LedCommand}"  CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" IsEnabled="{Binding IsArmConnected}"/>
             <Label Grid.Column="0" Grid.Row="1" Content="Gripper"/>
 
             <Label Grid.Column="0" Grid.Row="2" Content="Wrist"/>
             <Label Grid.Column="0" Grid.Row="3" Content="Elbow"/>
             <Label Grid.Column="0" Grid.Row="4" Content="Shoulder"/>
             <Label Grid.Column="0" Grid.Row="5" Content="Base"/>
-            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" LeftText="close" RightText="open" SliderValue="{Binding GripperSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding WristSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding ElbowSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding ShoulderSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" LeftText="clockwise" RightText="anti-clockwise" SliderValue="{Binding BaseSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding StopCommand}">Stop</Button>
+            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" LeftText="close" RightText="open" SliderValue="{Binding GripperSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsArmConnected}"/>
+            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding WristSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsArmConnected}"/>
+            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding ElbowSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsArmConnected}"/>
+            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" LeftText="down" RightText="up" SliderValue="{Binding ShoulderSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsArmConnected}"/>
+            <local:MovementSelector Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" LeftText="clockwise" RightText="anti-clockwise" SliderValue="{Binding BaseSliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsArmConnected}"/>
+            <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding StopCommand}" IsEnabled="{Binding IsArmConnected}">Stop</Button>
         </Grid>
         <ScrollViewer>
             <TextBlock Text="{Binding LogOutput}" Height="90" TextWrapping="Wrap"/>

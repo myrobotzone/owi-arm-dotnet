@@ -16,12 +16,28 @@ namespace owi_arm_dotnet
             this.owiUsbConnection = owiUsbConnection;
         }
 
+        public bool IsConnected
+        {
+            get
+            {
+                return this.owiUsbConnection.IsOpen;
+            }
+        }
+
         public void Connect()
         {
             if (this.owiUsbConnection.IsOpen == false)
             {
                 this.owiUsbConnection.Open();
-           } 
+            }
+        }
+
+        public void Disconnect()
+        {
+            if (this.owiUsbConnection.IsOpen)
+            {
+                this.owiUsbConnection.Close();
+            }
         }
 
         public void SendCommand(IOwiCommand command)
@@ -32,14 +48,6 @@ namespace owi_arm_dotnet
             }
 
             this.owiUsbConnection.Send(command.ArmByte, command.BaseByte, command.LedByte);
-        }
-
-        public void Disconnect()
-        {
-            if (this.owiUsbConnection.IsOpen)
-            {
-                this.owiUsbConnection.Close();
-            }
         }
     }
 }

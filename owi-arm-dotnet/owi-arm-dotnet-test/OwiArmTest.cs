@@ -57,6 +57,17 @@ namespace owi_arm_dotnet_test
         }
 
         [TestMethod]
+        public void IsConnected_ReturnsTrueIfConnectionIsOpen()
+        {
+            var connectionMock = new Mock<IOwiUsbConnection>();
+            connectionMock.SetupGet(mock => mock.IsOpen).Returns(true);
+
+            var arm = new OwiArm(connectionMock.Object);
+
+            Assert.IsTrue(arm.IsConnected);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void SendCommand_ConnectionIsNotOpen_InvalidOperationExceptionOccurs()
         {
