@@ -23,6 +23,9 @@ arm.SendCommand(command.StopAllMovements().LedOff());
 arm.Disconnect();
 ```
 
+## Nuget Package
+The library is available as a [nuget package](https://www.nuget.org/packages/owi-arm-dotnet/).
+
 ## Sample application
 
 The sample application can be used to access all of the robotic arm features via a basic user interface.
