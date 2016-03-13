@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("owi-arm-dotnet")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A C# library for controlling the Maplin (OWI-007) USB controlled robotic arm")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("myrobotzone")]
 [assembly: AssemblyProduct("owi-arm-dotnet")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
