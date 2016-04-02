@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\owi-arm-dotnet\owi-arm-dotnet.csproj">
-      <Project>{cacfe635-33a6-4be5-a3b2-23d97fe50ca5}</Project>
+      <Project>{12e6e1b3-1a4e-446b-b23c-6426574a235c}</Project>
       <Name>owi-arm-dotnet</Name>
     </ProjectReference>
   </ItemGroup>

@@ -158,12 +158,12 @@ namespace owi_arm_dotnet
 
         private byte ConvertToByte(BitArray bits)
         {
-            if (bits.Count != 8)
+            if (bits.Length != 8)
             {
                 throw new ArgumentException("bits");
             }
             byte[] bytes = new byte[1];
-            bits.CopyTo(bytes, 0);
+            ((ICollection)bits).CopyTo(bytes, 0);
             return bytes[0];
         }
     }

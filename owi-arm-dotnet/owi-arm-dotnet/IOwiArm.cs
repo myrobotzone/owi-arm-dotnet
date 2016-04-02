@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 namespace owi_arm_dotnet
 {
     public interface IOwiArm
     {
         bool IsConnected { get; }
 
-        void Connect();
+        Task ConnectAsync();
 
-        void Disconnect();
+        Task DisconnectAsync();
 
-        void SendCommand(IOwiCommand command);
+        Task SendCommandAsync(IOwiCommand command);
     }
 }

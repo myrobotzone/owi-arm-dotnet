@@ -3,6 +3,7 @@ using Moq;
 using owi_arm_dotnet;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace owi_arm_dotnet_test
 {
@@ -10,51 +11,51 @@ namespace owi_arm_dotnet_test
     public class OwiArmTest
     {
         [TestMethod]
-        public void Connect_ConnectionIsNotOpen_CallsOpenOnUsbConnection()
+        public async Task ConnectAsync_ConnectionIsNotOpen_CallsOpenOnUsbConnection()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
             connectionMock.SetupGet(mock => mock.IsOpen).Returns(false);
 
             var arm = new OwiArm(connectionMock.Object);
-            arm.Connect();
+            await arm.ConnectAsync();
 
-            connectionMock.Verify(mock => mock.Open(), Times.Once);
+            connectionMock.Verify(mock => mock.OpenAsync(), Times.Once);
         }
 
         [TestMethod]
-        public void Connect_ConnectionIsAlreadyOpen_DoesNotOpenConnectionAgain()
+        public async Task ConnectAsync_ConnectionIsAlreadyOpen_DoesNotOpenConnectionAgain()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
             connectionMock.SetupGet(mock => mock.IsOpen).Returns(true);
 
             var arm = new OwiArm(connectionMock.Object);
-            arm.Connect();
+            await arm.ConnectAsync();
 
-            connectionMock.Verify(mock => mock.Open(), Times.Never);
+            connectionMock.Verify(mock => mock.OpenAsync(), Times.Never);
         }
 
         [TestMethod]
-        public void Disconnect_ConnectionIsOpen_CallsCloseOnUsbConnection()
+        public async Task DisconnectAsync_ConnectionIsOpen_CallsCloseOnUsbConnection()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
             connectionMock.SetupGet(mock => mock.IsOpen).Returns(true);
 
             var arm = new OwiArm(connectionMock.Object);
-            arm.Disconnect();
+            await arm.DisconnectAsync();
 
-            connectionMock.Verify(mock => mock.Close(), Times.Once);
+            connectionMock.Verify(mock => mock.CloseAsync(), Times.Once);
         }
 
         [TestMethod]
-        public void Disconnect_ConnectionIsNotOpen_ConnectionIsNotClosed()
+        public async Task DisconnectAsync_ConnectionIsNotOpen_ConnectionIsNotClosed()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
             connectionMock.SetupGet(mock => mock.IsOpen).Returns(false);
 
             var arm = new OwiArm(connectionMock.Object);
-            arm.Disconnect();
+            await arm.DisconnectAsync();
 
-            connectionMock.Verify(mock => mock.Close(), Times.Never);
+            connectionMock.Verify(mock => mock.CloseAsync(), Times.Never);
         }
 
         [TestMethod]
@@ -70,17 +71,17 @@ namespace owi_arm_dotnet_test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void SendCommand_ConnectionIsNotOpen_InvalidOperationExceptionOccurs()
+        public async Task SendCommandAsync_ConnectionIsNotOpen_InvalidOperationExceptionOccurs()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
             connectionMock.SetupGet(mock => mock.IsOpen).Returns(false);
 
             var arm = new OwiArm(connectionMock.Object);
-            arm.SendCommand(new OwiCommand());
+            await arm.SendCommandAsync(new OwiCommand());
         }
 
         [TestMethod]
-        public void SendCommand_ConnectionIsOpen_SendsCommand()
+        public async Task SendCommandAsync_ConnectionIsOpen_SendsCommand()
         {
             const byte expectedArmByte = 4;
             const byte expectedBaseOfArmByte = 6;
@@ -95,27 +96,26 @@ namespace owi_arm_dotnet_test
             packetMock.SetupGet(mock => mock.LedByte).Returns(expectedLedByte);
 
             var arm = new OwiArm(connection.Object);
-            arm.SendCommand(packetMock.Object);
+            await arm.SendCommandAsync(packetMock.Object);
 
-            connection.Verify(mock => mock.Send(expectedArmByte, expectedBaseOfArmByte, expectedLedByte), Times.Once);
+            connection.Verify(mock => mock.SendAsync(expectedArmByte, expectedBaseOfArmByte, expectedLedByte), Times.Once);
         }
 
         [TestMethod]
         [Ignore]
-        public void IntegrationTestThatRequiresAmr()
+        public async Task IntegrationTestThatRequiresAmr()
         {
             IOwiArm arm = new OwiArm();
-            arm.Connect();
-
+            await arm.ConnectAsync();
 
             IOwiCommand command = new OwiCommand().BaseRotateClockwise().ShoulderUp().LedOn();
 
-            arm.SendCommand(command);
+            await arm.SendCommandAsync(command);
             Thread.Sleep(2000);
 
-            arm.SendCommand(command.StopAllMovements().LedOff());
+            await arm.SendCommandAsync(command.StopAllMovements().LedOff());
 
-            arm.Disconnect();
+            await arm.DisconnectAsync();
         }
     }
 }

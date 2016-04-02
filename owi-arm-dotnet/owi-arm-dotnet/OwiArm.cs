@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace owi_arm_dotnet
 {
@@ -24,30 +25,31 @@ namespace owi_arm_dotnet
             }
         }
 
-        public void Connect()
+        public Task ConnectAsync()
         {
             if (this.owiUsbConnection.IsOpen == false)
             {
-                this.owiUsbConnection.Open();
+                return this.owiUsbConnection.OpenAsync();
             }
+            return Task.FromResult(true);
         }
 
-        public void Disconnect()
+        public async Task DisconnectAsync()
         {
             if (this.owiUsbConnection.IsOpen)
             {
-                this.owiUsbConnection.Close();
+                await this.owiUsbConnection.CloseAsync();
             }
         }
 
-        public void SendCommand(IOwiCommand command)
+        public Task SendCommandAsync(IOwiCommand command)
         {
             if (this.owiUsbConnection.IsOpen == false)
             {
                 throw new InvalidOperationException("Unable to send command because the connection is not open.");
             }
 
-            this.owiUsbConnection.Send(command.ArmByte, command.BaseByte, command.LedByte);
+            return this.owiUsbConnection.SendAsync(command.ArmByte, command.BaseByte, command.LedByte);
         }
     }
 }

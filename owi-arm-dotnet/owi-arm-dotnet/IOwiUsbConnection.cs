@@ -10,11 +10,10 @@ namespace owi_arm_dotnet
     {
         bool IsOpen { get; }
 
-        void Open();
+        Task OpenAsync();
 
-        void Send(byte byte1, byte byte2, byte byte3);
+        Task SendAsync(byte byte1, byte byte2, byte byte3);
 
-        void Close();
-
+        Task CloseAsync();
     }
 }

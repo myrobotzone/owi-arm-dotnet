@@ -44,7 +44,7 @@ namespace sample.app.ViewModel
         {
             // TODO: why is this not being called by the MVVM light framework?
             base.Cleanup();
-            this.arm.Disconnect();
+            this.arm.DisconnectAsync();
         }
 
         public bool IsArmConnected
@@ -148,11 +148,11 @@ namespace sample.app.ViewModel
             }
         }
 
-        private void SendCommandToRobotArm()
+        private async void SendCommandToRobotArm()
         {
             try
             {
-                this.arm.SendCommand(this.command);
+                await this.arm.SendCommandAsync(this.command);
             }
             catch (Exception e)
             {
@@ -166,11 +166,11 @@ namespace sample.app.ViewModel
 
         public ICommand StopCommand { get; private set; }
 
-        private void OnConnectCommand()
+        private async void OnConnectCommand()
         {
             try
             {
-                this.arm.Connect();
+                await this.arm.ConnectAsync();
                 this.RaisePropertyChanged(() => IsArmConnected);
             }
             catch (System.Exception e)
