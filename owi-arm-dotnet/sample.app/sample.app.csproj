@@ -123,6 +123,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\owi-arm-dotnet-usb\owi-arm-dotnet-usb.csproj">
+      <Project>{76701f04-d939-41ea-b52d-a8c79934d44b}</Project>
+      <Name>owi-arm-dotnet-usb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\owi-arm-dotnet\owi-arm-dotnet.csproj">
       <Project>{12e6e1b3-1a4e-446b-b23c-6426574a235c}</Project>
       <Name>owi-arm-dotnet</Name>

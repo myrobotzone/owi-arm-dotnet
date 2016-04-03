@@ -110,19 +110,10 @@
     <Compile Include="IOwiUsbConnection.cs" />
     <Compile Include="OwiArm.cs" />
     <Compile Include="OwiCommand.cs" />
-    <Compile Include="OwiUsbConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="robot_arm.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="LibUsbDotNet">
-      <HintPath>..\packages\LibUsbDotNet.2.2.8\lib\LibUsbDotNet.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

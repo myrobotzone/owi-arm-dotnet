@@ -1,11 +1,12 @@
 ﻿using LibUsbDotNet;
 using LibUsbDotNet.Main;
+using owi_arm_dotnet;
 using System;
 using System.Threading.Tasks;
 
-namespace owi_arm_dotnet
+namespace owi_arm_dotnet_usb
 {
-    internal class OwiUsbConnection : IOwiUsbConnection
+    public class LibUsbOwiConnection : IOwiUsbConnection
     {
         private UsbDevice device;
 
@@ -20,15 +21,15 @@ namespace owi_arm_dotnet
         public Task OpenAsync()
         {
             return Task.Factory.StartNew(() =>
+            {
+                var finder = new UsbDeviceFinder((int)OwiUsbConstants.Vid, (int)OwiUsbConstants.Pid);
+                this.device = UsbDevice.OpenUsbDevice(finder);
+                if (device == null)
                 {
-                    var finder = new UsbDeviceFinder(0x1267, 0);
-                    this.device = UsbDevice.OpenUsbDevice(finder);
-                    if (device == null)
-                    {
-                        var message = string.Format("Unable to locate owi robotic arm with pid = {0}, vid = {1}. Please ensure you have the device connected with a valid usb driver installed.", finder.Pid, finder.Vid);
-                        throw new InvalidOperationException(message);
-                    }
-                });
+                    var message = string.Format("Unable to locate owi robotic arm with pid = {0}, vid = {1}. Please ensure you have the device connected with a valid usb driver installed.", finder.Pid, finder.Vid);
+                    throw new InvalidOperationException(message);
+                }
+            });
         }
 
         public Task SendAsync(byte byte1, byte byte2, byte byte3)
@@ -43,7 +44,7 @@ namespace owi_arm_dotnet
                             byte3
                         };
                 int transferLength = 0;
-                var packet = new UsbSetupPacket(0x40, 6, 0x100, 0, 0);
+                var packet = new UsbSetupPacket(0x40, OwiUsbConstants.Requst, OwiUsbConstants.Value, 0, 0);
                 var code = this.device.ControlTransfer(ref packet, command, expectedTransferLength, out transferLength);
                 if (transferLength != expectedTransferLength)
                 {

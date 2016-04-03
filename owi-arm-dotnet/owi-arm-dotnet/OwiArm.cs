@@ -7,11 +7,6 @@ namespace owi_arm_dotnet
     {
         private IOwiUsbConnection owiUsbConnection;
 
-        public OwiArm()
-        {
-            this.owiUsbConnection = new OwiUsbConnection();
-        }
-
         public OwiArm(IOwiUsbConnection owiUsbConnection)
         {
             this.owiUsbConnection = owiUsbConnection;

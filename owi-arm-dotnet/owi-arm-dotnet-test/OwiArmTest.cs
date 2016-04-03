@@ -87,25 +87,26 @@ namespace owi_arm_dotnet_test
             const byte expectedBaseOfArmByte = 6;
             const byte expectedLedByte = 2;
 
-            var connection = new Mock<IOwiUsbConnection>();
-            connection.SetupGet(mock => mock.IsOpen).Returns(true);
+            var connectionMock = new Mock<IOwiUsbConnection>();
+            connectionMock.SetupGet(mock => mock.IsOpen).Returns(true);
 
             var packetMock = new Mock<IOwiCommand>();
             packetMock.SetupGet(mock => mock.ArmByte).Returns(expectedArmByte);
             packetMock.SetupGet(mock => mock.BaseByte).Returns(expectedBaseOfArmByte);
             packetMock.SetupGet(mock => mock.LedByte).Returns(expectedLedByte);
 
-            var arm = new OwiArm(connection.Object);
+            var arm = new OwiArm(connectionMock.Object);
             await arm.SendCommandAsync(packetMock.Object);
 
-            connection.Verify(mock => mock.SendAsync(expectedArmByte, expectedBaseOfArmByte, expectedLedByte), Times.Once);
+            connectionMock.Verify(mock => mock.SendAsync(expectedArmByte, expectedBaseOfArmByte, expectedLedByte), Times.Once);
         }
 
         [TestMethod]
         [Ignore]
         public async Task IntegrationTestThatRequiresAmr()
         {
-            IOwiArm arm = new OwiArm();
+            var connection = new Mock<IOwiUsbConnection>().Object;
+            IOwiArm arm = new OwiArm(connection);
             await arm.ConnectAsync();
 
             IOwiCommand command = new OwiCommand().BaseRotateClockwise().ShoulderUp().LedOn();

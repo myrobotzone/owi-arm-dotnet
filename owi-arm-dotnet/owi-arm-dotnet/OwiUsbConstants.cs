@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace owi_arm_dotnet
+﻿namespace owi_arm_dotnet
 {
     public static class OwiUsbConstants
     {
@@ -21,6 +15,22 @@ namespace owi_arm_dotnet
             get
             {
                 return 0x0000;
+            }
+        }
+
+        public static byte Requst
+        {
+            get
+            {
+                return 6;
+            }
+        }
+
+        public static short Value
+        {
+            get
+            {
+                return 0x100;
             }
         }
     }

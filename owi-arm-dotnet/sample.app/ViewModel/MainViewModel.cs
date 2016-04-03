@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using owi_arm_dotnet;
+using owi_arm_dotnet_usb;
 using System;
 using System.Windows.Input;
 
@@ -16,7 +17,7 @@ namespace sample.app.ViewModel
         private string logOutput;
 
         private IOwiCommand command = new OwiCommand();
-        private IOwiArm arm = new OwiArm();
+        private IOwiArm arm = new OwiArm(new LibUsbOwiConnection());
 
         private MovementCommander gripperCommander;
         private MovementCommander wristCommander;
