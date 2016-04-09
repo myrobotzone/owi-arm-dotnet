@@ -21,7 +21,10 @@ namespace owi_arm_dotnet
         /// <summary>
         /// Sends bytes to the arm.
         /// </summary>
-        Task SendAsync(byte byte1, byte byte2, byte byte3);
+        /// <param name="armByte">The byte representing arm movements.</param>
+        /// <param name="baseByte">The byte representing base movements.</param>
+        /// <param name="ledByte">The byte representing the LED.</param>
+        Task SendAsync(byte armByte, byte baseByte, byte ledByte);
 
         /// <summary>
         /// Closes the usb connection.

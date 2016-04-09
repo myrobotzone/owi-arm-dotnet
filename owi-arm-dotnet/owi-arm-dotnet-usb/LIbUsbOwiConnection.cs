@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace owi_arm_dotnet_usb
 {
+    /// <summary>
+    /// Implements an owi usb connection using lib usb. This can be used on
+    /// Windows desktop devices.
+    /// </summary>
     public class LibUsbOwiConnection : IOwiUsbConnection
     {
         private UsbDevice device;
@@ -18,6 +22,7 @@ namespace owi_arm_dotnet_usb
             }
         }
 
+        /// <inheritdoc />
         public Task OpenAsync()
         {
             return Task.Factory.StartNew(() =>
@@ -32,16 +37,17 @@ namespace owi_arm_dotnet_usb
             });
         }
 
-        public Task SendAsync(byte byte1, byte byte2, byte byte3)
+        /// <inheritdoc />
+        public Task SendAsync(byte armByte, byte baseByte, byte ledByte)
         {
             return Task.Factory.StartNew(() =>
             {
                 const int expectedTransferLength = 3;
                 var command = new Byte[]
                         {
-                            byte1,
-                            byte2,
-                            byte3
+                            armByte,
+                            baseByte,
+                            ledByte
                         };
                 int transferLength = 0;
                 var packet = new UsbSetupPacket(0x40, OwiUsbConstants.Requst, OwiUsbConstants.Value, 0, 0);
@@ -53,6 +59,7 @@ namespace owi_arm_dotnet_usb
             });
         }
 
+        /// <inheritdoc />
         public Task CloseAsync()
         {
             return Task.Factory.StartNew(() =>
