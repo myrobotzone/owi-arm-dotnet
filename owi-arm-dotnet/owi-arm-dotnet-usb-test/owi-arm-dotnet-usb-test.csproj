@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6585B3A7-E8AC-44AB-B024-E601C28A8112}</ProjectGuid>
+    <ProjectGuid>{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>owi_arm_dotnet_test</RootNamespace>
-    <AssemblyName>owi-arm-dotnet-test</AssemblyName>
+    <RootNamespace>owi_arm_dotnet_usb_test</RootNamespace>
+    <AssemblyName>owi-arm-dotnet-usb-test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,18 +55,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="OwiArmTest.cs" />
+    <Compile Include="IntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CommandTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\owi-arm-dotnet-usb\owi-arm-dotnet-usb.csproj">
+      <Project>{76701f04-d939-41ea-b52d-a8c79934d44b}</Project>
+      <Name>owi-arm-dotnet-usb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\owi-arm-dotnet\owi-arm-dotnet.csproj">
       <Project>{12e6e1b3-1a4e-446b-b23c-6426574a235c}</Project>
       <Name>owi-arm-dotnet</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

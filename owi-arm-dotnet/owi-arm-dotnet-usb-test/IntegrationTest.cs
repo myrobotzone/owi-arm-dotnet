@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using owi_arm_dotnet;
+using owi_arm_dotnet_usb;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace owi_arm_dotnet_test
+namespace owi_arm_dotnet_usb_test
 {
     [TestClass]
     public class IntegrationTest
@@ -17,13 +18,15 @@ namespace owi_arm_dotnet_test
         [Ignore]
         public async Task IntegrationTestThatRequiresArm()
         {
-            var connection = new Mock<IOwiUsbConnection>().Object;
-            IOwiArm arm = new OwiArm(connection);
+            IOwiFactory factory = new OwiFactory();
+            IOwiArm arm = factory.CreateArm(new LibUsbOwiConnection());
+
             await arm.ConnectAsync();
 
-            IOwiCommand command = new OwiCommand().BaseRotateClockwise().ShoulderUp().LedOn();
+            IOwiCommand command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
 
             await arm.SendCommandAsync(command);
+
             Thread.Sleep(2000);
 
             await arm.SendCommandAsync(command.StopAllMovements().LedOff());

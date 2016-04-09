@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "owi-arm-dotnet-test", "owi-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "owi-arm-dotnet-usb", "owi-arm-dotnet-usb\owi-arm-dotnet-usb.csproj", "{76701F04-D939-41EA-B52D-A8C79934D44B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "owi-arm-dotnet-usb-test", "owi-arm-dotnet-usb-test\owi-arm-dotnet-usb-test.csproj", "{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,16 @@ Global
 		{76701F04-D939-41EA-B52D-A8C79934D44B}.Release|ARM.ActiveCfg = Release|Any CPU
 		{76701F04-D939-41EA-B52D-A8C79934D44B}.Release|x64.ActiveCfg = Release|Any CPU
 		{76701F04-D939-41EA-B52D-A8C79934D44B}.Release|x86.ActiveCfg = Release|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Release|ARM.ActiveCfg = Release|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Release|x64.ActiveCfg = Release|Any CPU
+		{17171F4D-ED6C-46CD-A9B2-47F4EB5B67CD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
