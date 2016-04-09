@@ -17,7 +17,7 @@ namespace sample.app.ViewModel
         private string logOutput;
 
         private IOwiCommand command = new OwiCommand();
-        private IOwiArm arm = new OwiArm(new LibUsbOwiConnection());
+        private IOwiArm arm = new OwiArmFactory().Create(new LibUsbOwiConnection());
 
         private MovementCommander gripperCommander;
         private MovementCommander wristCommander;

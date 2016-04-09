@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace owi_arm_dotnet
 {
-    public class OwiArm : IOwiArm
+    internal class OwiArm : IOwiArm
     {
         private IOwiUsbConnection owiUsbConnection;
 
@@ -12,6 +12,7 @@ namespace owi_arm_dotnet
             this.owiUsbConnection = owiUsbConnection;
         }
 
+        /// <inheritdoc />
         public bool IsConnected
         {
             get
@@ -20,6 +21,7 @@ namespace owi_arm_dotnet
             }
         }
 
+        /// <inheritdoc />
         public Task ConnectAsync()
         {
             if (this.owiUsbConnection.IsOpen == false)
@@ -29,6 +31,7 @@ namespace owi_arm_dotnet
             return Task.FromResult(true);
         }
 
+        /// <inheritdoc />
         public async Task DisconnectAsync()
         {
             if (this.owiUsbConnection.IsOpen)
@@ -37,6 +40,7 @@ namespace owi_arm_dotnet
             }
         }
 
+        /// <inheritdoc />
         public Task SendCommandAsync(IOwiCommand command)
         {
             if (this.owiUsbConnection.IsOpen == false)

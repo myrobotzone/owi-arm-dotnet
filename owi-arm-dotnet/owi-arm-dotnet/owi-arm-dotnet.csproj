@@ -104,6 +104,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IOwiArmFactory.cs" />
+    <Compile Include="OwiArmFactory.cs" />
     <Compile Include="OwiUsbConstants.cs" />
     <Compile Include="IOwiArm.cs" />
     <Compile Include="IOwiCommand.cs" />

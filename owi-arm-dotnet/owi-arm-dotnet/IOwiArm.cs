@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 namespace owi_arm_dotnet
 {
     /// <summary>
-    /// Interface for connecting and sending commands to the owi robotic arm.
+    /// Interface that represents an owi robotic arm.
     /// </summary>
     public interface IOwiArm
     {
