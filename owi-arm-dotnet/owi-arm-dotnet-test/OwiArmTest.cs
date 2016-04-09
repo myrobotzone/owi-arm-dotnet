@@ -100,23 +100,5 @@ namespace owi_arm_dotnet_test
 
             connectionMock.Verify(mock => mock.SendAsync(expectedArmByte, expectedBaseOfArmByte, expectedLedByte), Times.Once);
         }
-
-        [TestMethod]
-        [Ignore]
-        public async Task IntegrationTestThatRequiresAmr()
-        {
-            var connection = new Mock<IOwiUsbConnection>().Object;
-            IOwiArm arm = new OwiArm(connection);
-            await arm.ConnectAsync();
-
-            IOwiCommand command = new OwiCommand().BaseRotateClockwise().ShoulderUp().LedOn();
-
-            await arm.SendCommandAsync(command);
-            Thread.Sleep(2000);
-
-            await arm.SendCommandAsync(command.StopAllMovements().LedOff());
-
-            await arm.DisconnectAsync();
-        }
     }
 }
