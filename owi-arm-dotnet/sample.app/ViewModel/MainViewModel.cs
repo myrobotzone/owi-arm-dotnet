@@ -16,8 +16,8 @@ namespace sample.app.ViewModel
         private int baseSliderValue;
         private string logOutput;
 
-        private IOwiCommand command = new OwiCommand();
-        private IOwiArm arm = new OwiArmFactory().Create(new LibUsbOwiConnection());
+        private IOwiArm arm;
+        private IOwiCommand command;
 
         private MovementCommander gripperCommander;
         private MovementCommander wristCommander;
@@ -30,6 +30,10 @@ namespace sample.app.ViewModel
         /// </summary>
         public MainViewModel()
         {
+            var factory = new OwiFactory();
+            this.arm = factory.CreateArm(new LibUsbOwiConnection());
+            this.command = factory.CreateCommand();
+
             this.ConnectCommand = new RelayCommand(() => this.OnConnectCommand());
             this.LedCommand = new RelayCommand<bool>(state => this.OnLedCommand(state));
             this.StopCommand = new RelayCommand(() => this.OnStopCommand());
