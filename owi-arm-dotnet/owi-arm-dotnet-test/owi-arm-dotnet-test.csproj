@@ -58,6 +58,7 @@
     <Compile Include="OwiArmTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommandTest.cs" />
+    <Compile Include="OwiFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
