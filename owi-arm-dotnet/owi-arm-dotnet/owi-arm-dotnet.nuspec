@@ -8,7 +8,7 @@
     <owners>Jonas Hodel</owners>
     <licenseUrl>https://github.com/myrobotzone/owi-arm-dotnet/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/myrobotzone/owi-arm-dotnet</projectUrl>
-    <iconUrl>https://github.com/myrobotzone/owi-arm-dotnet/blob/7c2ca5f1d21513d75fdf0a2fc5e619f93587d6c1/owi-arm-dotnet/owi-arm-dotnet/robot_arm.ico</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/myrobotzone/owi-arm-dotnet/7c2ca5f1d21513d75fdf0a2fc5e619f93587d6c1/owi-arm-dotnet/owi-arm-dotnet/robot_arm.ico</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>A C# library for controlling the Maplin (OWI-007) USB controlled robotic arm</description>
     <releaseNotes>First release</releaseNotes>

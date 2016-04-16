@@ -7,7 +7,7 @@ namespace owi_arm_dotnet
     /// manipulated by using the methods on this interface. The interface
     /// provides a fluent API so that each commanding method can be chained.
     /// </summary>
-    public interface IOwiCommand
+    public interface IOwiCommand : IEquatable<IOwiCommand>
     {
         /// <summary>
         /// Gets a value for the command byte representing arm movements.
@@ -113,5 +113,13 @@ namespace owi_arm_dotnet
         /// Command to turn the LED on.
         /// </summary>
         IOwiCommand LedOn();
+
+        /// <summary>
+        /// Get a value indicating whether all movement is off (state of LED is ignored).
+        /// </summary>
+        /// <returns>
+        /// True if all movement is off, otherwise false.
+        /// </returns>
+        bool IsAllMovementOff { get; }
     }
 }

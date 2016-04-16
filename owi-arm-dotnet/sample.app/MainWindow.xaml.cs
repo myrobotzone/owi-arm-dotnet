@@ -23,6 +23,13 @@ namespace sample.app
         public MainWindow()
         {
             InitializeComponent();
+            this.Closing += MainWindow_Closing;
+        }
+
+        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ViewModel.ViewModelLocator.Cleanup();
+            this.Closing -= MainWindow_Closing;
         }
     }
 }

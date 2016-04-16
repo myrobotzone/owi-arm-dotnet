@@ -2,7 +2,7 @@
 namespace owi_arm_dotnet
 {
     /// <summary>
-    /// Interface for creating an owi arm.
+    /// Interface for creating an owi arm and owi commands.
     /// </summary>
     public interface IOwiFactory
     {

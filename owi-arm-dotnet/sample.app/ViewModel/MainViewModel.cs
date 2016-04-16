@@ -16,8 +16,8 @@ namespace sample.app.ViewModel
         private int baseSliderValue;
         private string logOutput;
 
-        private IOwiArm arm;
-        private IOwiCommand command;
+        private IOwiArm owiArm;
+        private IOwiCommand owiCommand;
 
         private MovementCommander gripperCommander;
         private MovementCommander wristCommander;
@@ -31,8 +31,8 @@ namespace sample.app.ViewModel
         public MainViewModel()
         {
             var factory = new OwiFactory();
-            this.arm = factory.CreateArm(new LibUsbOwiConnection());
-            this.command = factory.CreateCommand();
+            this.owiArm = factory.CreateArm(new LibUsbOwiConnection());
+            this.owiCommand = factory.CreateCommand();
 
             this.ConnectCommand = new RelayCommand(() => this.OnConnectCommand());
             this.LedCommand = new RelayCommand<bool>(state => this.OnLedCommand(state));
@@ -47,16 +47,20 @@ namespace sample.app.ViewModel
 
         public override void Cleanup()
         {
-            // TODO: why is this not being called by the MVVM light framework?
             base.Cleanup();
-            this.arm.DisconnectAsync();
+            if (this.IsArmConnected)
+            {
+                this.owiCommand.StopAllMovements().LedOff();
+                this.SendCommandToRobotArm();
+                this.owiArm.DisconnectAsync();
+            }
         }
 
         public bool IsArmConnected
         {
             get
             {
-                return this.arm.IsConnected;
+                return this.owiArm.IsConnected;
             }
         }
 
@@ -81,7 +85,7 @@ namespace sample.app.ViewModel
             }
             set
             {
-                this.gripperCommander.ApplyMovement(value, this.command);
+                this.gripperCommander.ApplyMovement(value, this.owiCommand);
                 this.SendCommandToRobotArm();
 
                 this.gripperSliderValue = value;
@@ -97,7 +101,7 @@ namespace sample.app.ViewModel
             }
             set
             {
-                this.wristCommander.ApplyMovement(value, this.command);
+                this.wristCommander.ApplyMovement(value, this.owiCommand);
                 this.SendCommandToRobotArm();
 
                 this.wristSliderValue = value;
@@ -113,7 +117,7 @@ namespace sample.app.ViewModel
             }
             set
             {
-                this.elbowCommander.ApplyMovement(value, this.command);
+                this.elbowCommander.ApplyMovement(value, this.owiCommand);
                 this.SendCommandToRobotArm();
 
                 this.elbowSliderValue = value;
@@ -129,7 +133,7 @@ namespace sample.app.ViewModel
             }
             set
             {
-                this.shoulderCommander.ApplyMovement(value, this.command);
+                this.shoulderCommander.ApplyMovement(value, this.owiCommand);
                 this.SendCommandToRobotArm();
 
                 this.shoulderSliderValue = value;
@@ -145,7 +149,7 @@ namespace sample.app.ViewModel
             }
             set
             {
-                this.baseCommander.ApplyMovement(value, this.command);
+                this.baseCommander.ApplyMovement(value, this.owiCommand);
                 this.SendCommandToRobotArm();
 
                 this.baseSliderValue = value;
@@ -153,11 +157,11 @@ namespace sample.app.ViewModel
             }
         }
 
-        private async void SendCommandToRobotArm()
+        private void SendCommandToRobotArm()
         {
             try
             {
-                await this.arm.SendCommandAsync(this.command);
+                this.owiArm.SendCommandAsync(this.owiCommand);
             }
             catch (Exception e)
             {
@@ -175,7 +179,7 @@ namespace sample.app.ViewModel
         {
             try
             {
-                await this.arm.ConnectAsync();
+                await this.owiArm.ConnectAsync();
                 this.RaisePropertyChanged(() => IsArmConnected);
             }
             catch (System.Exception e)
@@ -187,10 +191,13 @@ namespace sample.app.ViewModel
         private void OnLedCommand(bool isToggled)
         {
             if (isToggled)
-                this.command.LedOn();
+            {
+                this.owiCommand.LedOn();
+            }
             else
-                this.command.LedOff();
-
+            {
+                this.owiCommand.LedOff();
+            }
             this.SendCommandToRobotArm();
         }
 
@@ -211,7 +218,7 @@ namespace sample.app.ViewModel
             this.baseSliderValue = 0;
             this.RaisePropertyChanged(() => BaseSliderValue);
 
-            this.command.StopAllMovements();
+            this.owiCommand.StopAllMovements();
             this.SendCommandToRobotArm();
         }
     }

@@ -55,7 +55,11 @@ namespace sample.app.ViewModel
         
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            if (SimpleIoc.Default.IsRegistered<MainViewModel>())
+            {
+                ServiceLocator.Current.GetInstance<MainViewModel>().Cleanup();
+                SimpleIoc.Default.Unregister<MainViewModel>();
+            }
         }
     }
 }

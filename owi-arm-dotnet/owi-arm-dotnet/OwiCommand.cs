@@ -156,6 +156,19 @@ namespace owi_arm_dotnet
             return this;
         }
 
+        public bool IsAllMovementOff
+        {
+            get
+            {
+                return this.ArmByte == 0 && this.BaseByte == 0;
+            }
+        }
+
+        public bool Equals(IOwiCommand other)
+        {
+            return this.ArmByte == other.ArmByte && this.BaseByte == other.BaseByte && this.LedByte == other.LedByte;
+        }
+
         private byte ConvertToByte(BitArray bits)
         {
             if (bits.Length != 8)

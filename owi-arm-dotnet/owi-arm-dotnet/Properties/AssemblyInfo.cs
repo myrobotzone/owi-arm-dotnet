@@ -29,3 +29,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: InternalsVisibleTo("owi-arm-dotnet-test")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

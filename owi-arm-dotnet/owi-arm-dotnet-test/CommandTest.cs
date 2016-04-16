@@ -187,6 +187,16 @@ namespace owi_arm_dotnet_test
             Assert.AreEqual(0, command.BaseByte);
         }
 
+        [TestMethod]
+        public void IsAllMovementOff_LedIsOn_ReturnsTrue()
+        {
+            var command = new OwiCommand();
+
+            command.LedOn();
+
+            Assert.IsTrue(command.IsAllMovementOff);
+        }
+
         bool IsBitSet(byte b, int pos)
         {
             return (b & (1 << pos)) != 0;
