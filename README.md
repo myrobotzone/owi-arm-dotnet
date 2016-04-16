@@ -29,7 +29,7 @@ await arm.DisconnectAsync();
 ```
 
 ### Nuget Package(s)
-The library is available as a [nuget package](https://www.nuget.org/packages/owi-arm-dotnet/). 
+The library is available on nuget - [owi-arm-dotnet](https://www.nuget.org/packages/owi-arm-dotnet/). 
 
 For a Windows desktop usb implementation, refer to the sister package - [owi-arm-dotnet-usb](https://www.nuget.org/packages/owi-arm-dotnet-usb/).
 
