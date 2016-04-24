@@ -1,36 +1,47 @@
 # owi-arm-dotnet
 
-A .NET library that implements the [OWI-007 Robotic Arm parallel port protocol](http://notbrainsurgery.livejournal.com/38622.html). Tested on Windows 10 using [USB Controlled Robotic Arm Kit](http://www.maplin.co.uk/p/usb-controlled-robotic-arm-kit-a37jn)
+A .NET portable class library that implements the [OWI-007 Robotic Arm parallel port protocol](http://notbrainsurgery.livejournal.com/38622.html). Tested on Windows 10 using [USB Controlled Robotic Arm Kit](http://www.maplin.co.uk/p/usb-controlled-robotic-arm-kit-a37jn)
 
-## Release 1 ##
+## Release 1.5 ##
 
 ### Installing the robotic arm USB driver, under Windows
 
-Before operating the arm, ensure that you have the correct USB driver installed. Connect the arm to your computer using the supplied usb cable. Turn the arm on then install the WinUSB driver using [Zadig](http://zadig.akeo.ie/).
+Before operating the arm, ensure that you have the correct USB driver installed. Please follow the instructions documented at [www.myrobot.zone](https://www.myrobot.zone/blog/post/2016/04/04/Controlling-OWI-Arm-from-Windows-10.aspx)
 
 ### Code snippet
 The following code example demonstrates the API. It will at the same time and for 2 seconds, rotate the base clockwise, move the shoulder up and turn on the LED. After which all movement is stopped and the LED is turned off.
 
 ```csharp
-IOwiArm arm = new OwiArm();
-arm.Connect();
+IOwiFactory factory = new OwiFactory();
+IOwiArm arm = factory.CreateArm(new LibUsbOwiConnection());
 
-IOwiCommand command = new OwiCommand().BaseRotateClockwise().ShoulderUp().LedOn();
+await arm.ConnectAsync();
 
-arm.SendCommand(command);
+IOwiCommand command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
+
+await arm.SendCommandAsync(command);
+
 Thread.Sleep(2000);
 
-arm.SendCommand(command.StopAllMovements().LedOff());
+await arm.SendCommandAsync(command.StopAllMovements().LedOff());
 
-arm.Disconnect();
+await arm.DisconnectAsync();
 ```
 
-### Nuget Package
-The library is available as a [nuget package](https://www.nuget.org/packages/owi-arm-dotnet/).
+### Nuget Package(s)
+The library is available on nuget - [owi-arm-dotnet](https://www.nuget.org/packages/owi-arm-dotnet/). 
+
+For a Windows desktop usb implementation, refer to the sister package - [owi-arm-dotnet-usb](https://www.nuget.org/packages/owi-arm-dotnet-usb/).
 
 ### Sample application
 
 The sample application can be used to access all of the robotic arm features via a basic user interface.
 
-## Release 1.5
-I am in the process of migrating owi-arm-dotnet to a portalable class library that provides and asynchronous API. The latest code reflects these changes but I have not yet updated the documentation and nuget package. Note that this will be a breaking change to version 1 of the API.
+## Upgrading form Release 1.0 to 1.5
+
+A number of breaking changes were made so please follow this guide if you are upgrading form 1.0 to 1.5.
+
+1. Introduction of asynchronous API - Replace IOwiArm methods Connect(), SendCommand() and Disconnect() with ConnectAsync(), SendCommandAsync() and DisconnectAsync() respectively.
+2. The implementation of IOwiUsbConnection was moved from lib-usb-dotnet to lib-usb-dotnet-usb, so add a reference to the latter project or use its respective nuget package.
+3. Generally classes are now internal and only interfaces are public. To instantiate IOwiArm or IOwiCommand, use the OwiFactory (see code sample above).
+
