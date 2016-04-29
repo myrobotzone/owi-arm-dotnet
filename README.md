@@ -6,7 +6,7 @@ A .NET portable class library that implements the [OWI-007 Robotic Arm parallel 
 
 ### Installing the robotic arm USB driver, under Windows
 
-Before operating the arm, ensure that you have the correct USB driver installed. Please follow the instructions documented at [www.myrobot.zone](https://www.myrobot.zone/blog/post/2016/04/04/Controlling-OWI-Arm-from-Windows-10.aspx)
+Before operating the arm, ensure that you have the correct USB driver installed. For instructions, see [how to install a usb driver for the owi robotic arm](https://myrobot.zone/blog/post/2016/04/29/how-to-install-a-usb-driver-for-the-owi-robotic-arm.aspx) page.
 
 ### Code snippet
 The following code example demonstrates the API. It will at the same time and for 2 seconds, rotate the base clockwise, move the shoulder up and turn on the LED. After which all movement is stopped and the LED is turned off.
