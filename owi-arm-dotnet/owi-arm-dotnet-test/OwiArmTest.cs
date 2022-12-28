@@ -1,16 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
 using Moq;
 using owi_arm_dotnet;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace owi_arm_dotnet_test
 {
-    [TestClass]
     public class OwiArmTest
     {
-        [TestMethod]
+        [Fact]
         public async Task ConnectAsync_ConnectionIsNotOpen_CallsOpenOnUsbConnection()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
@@ -22,7 +18,7 @@ namespace owi_arm_dotnet_test
             connectionMock.Verify(mock => mock.OpenAsync(), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ConnectAsync_ConnectionIsAlreadyOpen_DoesNotOpenConnectionAgain()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
@@ -34,7 +30,7 @@ namespace owi_arm_dotnet_test
             connectionMock.Verify(mock => mock.OpenAsync(), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task DisconnectAsync_ConnectionIsOpen_CallsCloseOnUsbConnection()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
@@ -46,7 +42,7 @@ namespace owi_arm_dotnet_test
             connectionMock.Verify(mock => mock.CloseAsync(), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task DisconnectAsync_ConnectionIsNotOpen_ConnectionIsNotClosed()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
@@ -58,7 +54,7 @@ namespace owi_arm_dotnet_test
             connectionMock.Verify(mock => mock.CloseAsync(), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsConnected_ReturnsTrueIfConnectionIsOpen()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
@@ -66,21 +62,21 @@ namespace owi_arm_dotnet_test
 
             var arm = new OwiArm(connectionMock.Object);
 
-            Assert.IsTrue(arm.IsConnected);
+            arm.IsConnected.Should().BeTrue();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public async Task SendCommandAsync_ConnectionIsNotOpen_InvalidOperationExceptionOccurs()
         {
             var connectionMock = new Mock<IOwiUsbConnection>();
             connectionMock.SetupGet(mock => mock.IsOpen).Returns(false);
 
             var arm = new OwiArm(connectionMock.Object);
-            await arm.SendCommandAsync(new OwiCommand());
+            await arm.Invoking(a => a.SendCommandAsync(new OwiCommand())).Should()
+                .ThrowAsync<InvalidOperationException>();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task SendCommandAsync_ConnectionIsOpen_SendsCommand()
         {
             const byte expectedArmByte = 4;

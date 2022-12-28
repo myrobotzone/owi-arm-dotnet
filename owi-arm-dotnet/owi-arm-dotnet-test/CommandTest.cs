@@ -1,200 +1,199 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using owi_arm_dotnet;
-
+﻿using owi_arm_dotnet;
+using FluentAssertions;
 namespace owi_arm_dotnet_test
 {
-    [TestClass]
     public class OwiCommandTest
     {
-        [TestMethod]
+        [Fact]
         public void LedOn_LedWasOff_LedBitIsSet()
         {
             var command = new OwiCommand();
 
             command.LedOn();
 
-            Assert.IsTrue(IsBitSet(command.LedByte, 0));
+            IsBitSet(command.LedByte, 0).Should().BeTrue();
         }
 
 
-        [TestMethod]
+        [Fact]
         public void LedOff_LedWasOn_LedBitIsNotSet()
         {
             var command = new OwiCommand();
 
             command.LedOn().LedOff();
 
-            Assert.IsFalse(IsBitSet(command.LedByte, 0));
+            IsBitSet(command.LedByte, 0).Should().BeFalse();
         }
 
-        [TestMethod]
+        [Fact]
         public void GripperClose_GriperIsStopped_GripperCloseBitIsSet()
         {
             var command = new OwiCommand();
 
             command.GripperStop().GripperClose();
 
-            Assert.IsTrue(IsBitSet(command.ArmByte, 0));
+            IsBitSet(command.ArmByte, 0).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void GripperOpen_GriperIsClosing_GripperOpenBitIsSet()
         {
             var command = new OwiCommand();
 
             command.GripperClose().GripperOpen();
 
-            Assert.IsFalse(IsBitSet(command.ArmByte, 0));
-            Assert.IsTrue(IsBitSet(command.ArmByte, 1));
+            IsBitSet(command.ArmByte, 0).Should().BeFalse();
+            IsBitSet(command.ArmByte, 1).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void WristUp_WristIsStopped_WristUpBitIsSet()
         {
             var command = new OwiCommand();
 
             command.WristUp();
 
-            Assert.IsTrue(IsBitSet(command.ArmByte, 2));
+            IsBitSet(command.ArmByte, 2).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void WristDown_WristWasMovingUp_WristDownBitIsSet()
         {
             var command = new OwiCommand();
 
             command.WristUp().WristDown();
 
-            Assert.IsFalse(IsBitSet(command.ArmByte, 2));
-            Assert.IsTrue(IsBitSet(command.ArmByte, 3));
+            IsBitSet(command.ArmByte, 2).Should().BeFalse();
+            IsBitSet(command.ArmByte, 3).Should().BeTrue();
         }
 
+        [Fact]
         public void WristStop_WristWasMovingUp_WristDownBitIsSet()
         {
             var command = new OwiCommand();
 
             command.WristUp().WristStop();
 
-            Assert.IsFalse(IsBitSet(command.ArmByte, 2));
-            Assert.IsFalse(IsBitSet(command.ArmByte, 3));
+            IsBitSet(command.ArmByte, 2).Should().BeFalse();
+            IsBitSet(command.ArmByte, 3);
         }
 
-        [TestMethod]
+        [Fact]
         public void ElbowUp_ElbowWasStoped_ElbowUpBitIsSet()
         {
             var command = new OwiCommand();
 
             command.ElbowUp();
 
-            Assert.IsTrue(IsBitSet(command.ArmByte, 4));
+            IsBitSet(command.ArmByte, 4).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void ElbowDown_ElbowWasMovingUp_ElbowDownBitIsSet()
         {
             var command = new OwiCommand();
 
             command.ElbowUp().ElbowDown();
 
-            Assert.IsFalse(IsBitSet(command.ArmByte, 4));
-            Assert.IsTrue(IsBitSet(command.ArmByte, 5));
+            IsBitSet(command.ArmByte, 4).Should().BeFalse();
+            IsBitSet(command.ArmByte, 5).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void ElbowStop_ElbowWasDown_ElbowBitsAreReset()
         {
             var command = new OwiCommand();
 
             command.ElbowDown().ElbowStop();
 
-            Assert.IsFalse(IsBitSet(command.ArmByte, 4));
-            Assert.IsFalse(IsBitSet(command.ArmByte, 5));
+            IsBitSet(command.ArmByte, 4).Should().BeFalse();
+            IsBitSet(command.ArmByte, 5).Should().BeFalse();
         }
 
-        [TestMethod]
+        [Fact]
         public void ShoulderUp_ShoulderWasStoped_ShoulderUpBitIsSet()
         {
             var command = new OwiCommand();
 
             command.ShoulderUp();
 
-            Assert.IsTrue(IsBitSet(command.ArmByte, 6));
+            IsBitSet(command.ArmByte, 6).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void ShoulderDown_ShoulderWasMovingUp_ShoulderDownBitIsSet()
         {
             var command = new OwiCommand();
 
             command.ShoulderUp().ShoulderDown();
 
-            Assert.IsFalse(IsBitSet(command.ArmByte, 6));
-            Assert.IsTrue(IsBitSet(command.ArmByte, 7));
+            IsBitSet(command.ArmByte, 6).Should().BeFalse();
+            IsBitSet(command.ArmByte, 7).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void ShoulderStop_ShoulderWasDown_ShoulderBitsAreReset()
         {
             var command = new OwiCommand();
 
             command.ShoulderDown().ShoulderStop();
 
-            Assert.IsFalse(IsBitSet(command.ArmByte, 6));
-            Assert.IsFalse(IsBitSet(command.ArmByte, 7));
+            IsBitSet(command.ArmByte, 6).Should().BeFalse();
+            IsBitSet(command.ArmByte, 7);
         }
 
-        [TestMethod]
+        [Fact]
         public void BaseRotateClockwise_BaseRotateWasStoped_BaseRotateClockwiseBitIsSet()
         {
             var command = new OwiCommand();
 
             command.BaseRotateClockwise();
 
-            Assert.IsTrue(IsBitSet(command.BaseByte, 1));
+            IsBitSet(command.BaseByte, 1).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void BaseRotateCounterClockwise_BaseRotateWasMovingClockwise_BaseRotateCounterClockwiseBitIsSet()
         {
             var command = new OwiCommand();
 
             command.BaseRotateClockwise().BaseRotateCounterClockwise();
 
-            Assert.IsFalse(IsBitSet(command.BaseByte, 1));
-            Assert.IsTrue(IsBitSet(command.BaseByte, 0));
+            IsBitSet(command.BaseByte, 1).Should().BeFalse();
+            IsBitSet(command.BaseByte, 0).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void BaseRotateStop_BaseRotateWasClockwise_BaseRotateBitsAreReset()
         {
             var command = new OwiCommand();
 
             command.BaseRotateClockwise().BaseRotateStop();
 
-            Assert.IsFalse(IsBitSet(command.BaseByte, 0));
-            Assert.IsFalse(IsBitSet(command.BaseByte, 1));
+            IsBitSet(command.BaseByte, 0).Should().BeFalse();
+            IsBitSet(command.BaseByte, 1).Should().BeFalse();
         }
 
-        [TestMethod]
+        [Fact]
         public void StopAllMovements_LedIsOneAndArmIsMoving_LedBitIsOnButMovementsBitsAreReset()
         {
             var command = new OwiCommand();
 
             command.LedOn().ElbowUp().StopAllMovements();
 
-            Assert.AreNotEqual(0, command.LedByte);
-            Assert.AreEqual(0, command.ArmByte);
-            Assert.AreEqual(0, command.BaseByte);
+            command.LedByte.Should().NotBe(0);
+            command.ArmByte.Should().Be(0);
+            command.BaseByte.Should().Be(0);
         }
 
-        [TestMethod]
+        [Fact]
         public void IsAllMovementOff_LedIsOn_ReturnsTrue()
         {
             var command = new OwiCommand();
 
             command.LedOn();
 
-            Assert.IsTrue(command.IsAllMovementOff);
+            command.IsAllMovementOff.Should().BeTrue();
         }
 
         bool IsBitSet(byte b, int pos)

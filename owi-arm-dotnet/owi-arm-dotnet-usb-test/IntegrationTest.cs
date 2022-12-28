@@ -1,19 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using owi_arm_dotnet;
+﻿using owi_arm_dotnet;
 using owi_arm_dotnet_usb;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace owi_arm_dotnet_usb_test
 {
-    /// <summary>
-    /// These integration test require the arm connected to the computer.
-    /// </summary>
-    [TestClass]
-    [Ignore]
     public class IntegrationTest
     {
-        [TestMethod]
+        [Fact(Skip = "Requires the arm connected to the computer")]
         public async Task IntegrationTestThatRequiresArm()
         {
             IOwiFactory factory = new OwiFactory();
