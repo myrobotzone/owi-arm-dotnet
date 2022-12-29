@@ -139,9 +139,9 @@ internal class OwiCommand : IOwiCommand
 
     public bool IsAllMovementOff => ArmByte == 0 && BaseByte == 0;
 
-    public bool Equals(IOwiCommand other)
+    public bool Equals(IOwiCommand? other)
     {
-        return ArmByte == other.ArmByte && BaseByte == other.BaseByte && LedByte == other.LedByte;
+        return ArmByte == other?.ArmByte && BaseByte == other.BaseByte && LedByte == other.LedByte;
     }
 
     private static byte ConvertToByte(BitArray bits)

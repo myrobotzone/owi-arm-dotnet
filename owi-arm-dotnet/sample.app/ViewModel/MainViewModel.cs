@@ -16,7 +16,7 @@ public class MainViewModel : ViewModelBase
 
     private readonly MovementCommander gripperCommander;
     private int gripperSliderValue;
-    private string logOutput;
+    private string logOutput = string.Empty;
 
     private readonly IOwiArm owiArm;
     private readonly IOwiCommand owiCommand;

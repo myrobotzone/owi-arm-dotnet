@@ -197,6 +197,23 @@ public class OwiCommandTest
         command.IsAllMovementOff.Should().BeTrue();
     }
 
+    [Fact]
+    public void Equals_ComparisonWithNull_ReturnsFalse()
+    {
+        var command = new OwiCommand();
+
+        command.Equals(null).Should().BeFalse();
+    }
+
+    [Fact]
+    public void Equals_SameCommand_ReturnsTrue()
+    {
+        var command1 = new OwiCommand().ElbowUp();
+        var command2 = new OwiCommand().ElbowUp();
+
+        command1.Equals(command2).Should().BeTrue();
+    }
+
     private static bool IsBitSet(byte b, int pos)
     {
         return (b & (1 << pos)) != 0;
