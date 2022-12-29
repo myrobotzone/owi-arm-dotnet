@@ -10,9 +10,9 @@ namespace owi_arm_dotnet_usb;
 /// </summary>
 public class LibUsbOwiConnection : IOwiUsbConnection
 {
-    private UsbDevice device;
+    private UsbDevice? device;
 
-    public bool IsOpen => device != null && device.IsOpen;
+    public bool IsOpen => device is { IsOpen: true };
 
     /// <inheritdoc />
     public Task OpenAsync()
@@ -35,6 +35,12 @@ public class LibUsbOwiConnection : IOwiUsbConnection
     {
         return Task.Factory.StartNew(() =>
         {
+            if (device == null)
+            {
+                throw new InvalidOperationException(
+                    "Sending message to robot arm failed because the connection is closed");
+            }
+
             const int expectedTransferLength = 3;
             var command = new[]
             {
@@ -55,6 +61,6 @@ public class LibUsbOwiConnection : IOwiUsbConnection
     /// <inheritdoc />
     public Task CloseAsync()
     {
-        return Task.Factory.StartNew(() => { device.Close(); });
+        return Task.Factory.StartNew(() => { device?.Close(); });
     }
 }

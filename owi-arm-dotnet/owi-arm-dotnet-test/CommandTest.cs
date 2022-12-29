@@ -197,7 +197,7 @@ public class OwiCommandTest
         command.IsAllMovementOff.Should().BeTrue();
     }
 
-    private bool IsBitSet(byte b, int pos)
+    private static bool IsBitSet(byte b, int pos)
     {
         return (b & (1 << pos)) != 0;
     }

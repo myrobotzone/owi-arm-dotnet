@@ -144,11 +144,11 @@ internal class OwiCommand : IOwiCommand
         return ArmByte == other.ArmByte && BaseByte == other.BaseByte && LedByte == other.LedByte;
     }
 
-    private byte ConvertToByte(BitArray bits)
+    private static byte ConvertToByte(BitArray bits)
     {
         if (bits.Length != 8)
         {
-            throw new ArgumentException("bits");
+            throw new ArgumentException("The number of bits must be 8");
         }
 
         var bytes = new byte[1];
