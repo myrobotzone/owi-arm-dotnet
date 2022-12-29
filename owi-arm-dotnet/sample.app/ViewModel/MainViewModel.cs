@@ -140,15 +140,15 @@ public class MainViewModel : ViewModelBase
         }
     }
 
-    private void SendCommandToRobotArm()
+    private async void SendCommandToRobotArm()
     {
         try
         {
-            owiArm.SendCommandAsync(owiCommand);
+            await owiArm.SendCommandAsync(owiCommand);
         }
         catch (Exception e)
         {
-            LogOutput += string.Format("Command failed: {0}{1}", e.Message, Environment.NewLine);
+            LogOutput += $"Command failed: {e.Message}{Environment.NewLine}";
         }
     }
 
