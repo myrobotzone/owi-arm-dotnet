@@ -1,28 +1,27 @@
 ﻿using owi_arm_dotnet;
 using owi_arm_dotnet_usb;
 
-namespace owi_arm_dotnet_usb_test
+namespace owi_arm_dotnet_usb_test;
+
+public class IntegrationTest
 {
-    public class IntegrationTest
+    [Fact(Skip = "Requires the arm connected to the computer")]
+    public async Task IntegrationTestThatRequiresArm()
     {
-        [Fact(Skip = "Requires the arm connected to the computer")]
-        public async Task IntegrationTestThatRequiresArm()
-        {
-            var factory = new OwiFactory();
+        var factory = new OwiFactory();
 
-            var arm = factory.CreateArm(new LibUsbOwiConnection());
+        var arm = factory.CreateArm(new LibUsbOwiConnection());
 
-            await arm.ConnectAsync();
+        await arm.ConnectAsync();
 
-            var command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
+        var command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
 
-            await arm.SendCommandAsync(command);
+        await arm.SendCommandAsync(command);
 
-            Thread.Sleep(2000);
+        Thread.Sleep(2000);
 
-            await arm.SendCommandAsync(command.StopAllMovements().LedOff());
+        await arm.SendCommandAsync(command.StopAllMovements().LedOff());
 
-            await arm.DisconnectAsync();
-        }  
+        await arm.DisconnectAsync();
     }
 }

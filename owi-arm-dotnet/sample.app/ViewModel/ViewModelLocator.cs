@@ -15,50 +15,43 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 
-namespace sample.app.ViewModel
+namespace sample.app.ViewModel;
+
+/// <summary>
+/// This class contains static references to all the view models in the
+/// application and provides an entry point for the bindings.
+/// </summary>
+public class ViewModelLocator
 {
     /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
+    /// Initializes a new instance of the ViewModelLocator class.
     /// </summary>
-    public class ViewModelLocator
+    public ViewModelLocator()
     {
-        /// <summary>
-        /// Initializes a new instance of the ViewModelLocator class.
-        /// </summary>
-        public ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+        ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
+        ////if (ViewModelBase.IsInDesignModeStatic)
+        ////{
+        ////    // Create design time view services and models
+        ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
+        ////}
+        ////else
+        ////{
+        ////    // Create run time view services and models
+        ////    SimpleIoc.Default.Register<IDataService, DataService>();
+        ////}
 
-            SimpleIoc.Default.Register<MainViewModel>();
-        }
+        SimpleIoc.Default.Register<MainViewModel>();
+    }
 
-        public MainViewModel Main
+    public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+
+    public static void Cleanup()
+    {
+        if (SimpleIoc.Default.IsRegistered<MainViewModel>())
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
-        
-        public static void Cleanup()
-        {
-            if (SimpleIoc.Default.IsRegistered<MainViewModel>())
-            {
-                ServiceLocator.Current.GetInstance<MainViewModel>().Cleanup();
-                SimpleIoc.Default.Unregister<MainViewModel>();
-            }
+            ServiceLocator.Current.GetInstance<MainViewModel>().Cleanup();
+            SimpleIoc.Default.Unregister<MainViewModel>();
         }
     }
 }
