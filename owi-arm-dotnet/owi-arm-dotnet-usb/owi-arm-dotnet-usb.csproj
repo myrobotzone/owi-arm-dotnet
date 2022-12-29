@@ -1,11 +1,34 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>owi_arm_dotnet_usb</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Provides a Windows desktop usb interface implementation for owi-arm-dotnet</Description>
+    <Authors>Jonas Hodel</Authors>
+    <RepositoryUrl>https://github.com/myrobotzone/owi-arm-dotnet</RepositoryUrl>
+    <PackageIcon>owi-arm.jpg</PackageIcon>
+    <PackageReleaseNotes>Migrated to .NET 6</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <AssemblyVersion></AssemblyVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>OWI-007;OWI-535;Maplin;Robot;Arm;Robotic</PackageTags>
+    <Version>1.6.0</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\owi-arm.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
@@ -13,6 +36,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\owi-arm-dotnet\owi-arm-dotnet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

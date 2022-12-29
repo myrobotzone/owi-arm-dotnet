@@ -8,12 +8,13 @@ namespace owi_arm_dotnet_usb_test
         [Fact(Skip = "Requires the arm connected to the computer")]
         public async Task IntegrationTestThatRequiresArm()
         {
-            IOwiFactory factory = new OwiFactory();
-            IOwiArm arm = factory.CreateArm(new LibUsbOwiConnection());
+            var factory = new OwiFactory();
+
+            var arm = factory.CreateArm(new LibUsbOwiConnection());
 
             await arm.ConnectAsync();
 
-            IOwiCommand command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
+            var command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
 
             await arm.SendCommandAsync(command);
 
