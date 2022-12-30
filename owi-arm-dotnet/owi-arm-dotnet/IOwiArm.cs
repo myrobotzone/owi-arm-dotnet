@@ -1,32 +1,29 @@
-﻿using System;
-using System.Threading.Tasks;
-namespace owi_arm_dotnet
+﻿namespace owi_arm_dotnet;
+
+/// <summary>
+/// Interface that represents an owi robotic arm.
+/// </summary>
+public interface IOwiArm
 {
     /// <summary>
-    /// Interface that represents an owi robotic arm.
+    /// Gets a value indicating whether the arm is connected or not.
     /// </summary>
-    public interface IOwiArm
-    {
-        /// <summary>
-        /// Gets a value indicating whether the arm is connected or not.
-        /// </summary>
-        /// <returns>True if the arm is connected, otherwise false.</returns>
-        bool IsConnected { get; }
+    /// <returns>True if the arm is connected, otherwise false.</returns>
+    bool IsConnected { get; }
 
-        /// <summary>
-        /// Connects to the arm.
-        /// </summary>
-        Task ConnectAsync();
+    /// <summary>
+    /// Connects to the arm.
+    /// </summary>
+    Task ConnectAsync();
 
-        /// <summary>
-        /// Disconnects form the arm.
-        /// </summary>
-        Task DisconnectAsync();
+    /// <summary>
+    /// Disconnects form the arm.
+    /// </summary>
+    Task DisconnectAsync();
 
-        /// <summary>
-        /// Sends a command to the arm. ConnectAsync() should be called
-        /// before invoking this method.
-        /// </summary>
-        Task SendCommandAsync(IOwiCommand command);
-    }
+    /// <summary>
+    /// Sends a command to the arm. ConnectAsync() should be called
+    /// before invoking this method.
+    /// </summary>
+    Task SendCommandAsync(IOwiCommand command);
 }

@@ -1,35 +1,27 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using owi_arm_dotnet;
+﻿using owi_arm_dotnet;
 using owi_arm_dotnet_usb;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace owi_arm_dotnet_usb_test
+namespace owi_arm_dotnet_usb_test;
+
+public class IntegrationTest
 {
-    /// <summary>
-    /// These integration test require the arm connected to the computer.
-    /// </summary>
-    [TestClass]
-    [Ignore]
-    public class IntegrationTest
+    [Fact(Skip = "Requires the arm connected to the computer")]
+    public async Task IntegrationTestThatRequiresArm()
     {
-        [TestMethod]
-        public async Task IntegrationTestThatRequiresArm()
-        {
-            IOwiFactory factory = new OwiFactory();
-            IOwiArm arm = factory.CreateArm(new LibUsbOwiConnection());
+        var factory = new OwiFactory();
 
-            await arm.ConnectAsync();
+        var arm = factory.CreateArm(new LibUsbOwiConnection());
 
-            IOwiCommand command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
+        await arm.ConnectAsync();
 
-            await arm.SendCommandAsync(command);
+        var command = factory.CreateCommand().BaseRotateClockwise().ShoulderUp().LedOn();
 
-            Thread.Sleep(2000);
+        await arm.SendCommandAsync(command);
 
-            await arm.SendCommandAsync(command.StopAllMovements().LedOff());
+        Thread.Sleep(2000);
 
-            await arm.DisconnectAsync();
-        }  
+        await arm.SendCommandAsync(command.StopAllMovements().LedOff());
+
+        await arm.DisconnectAsync();
     }
 }

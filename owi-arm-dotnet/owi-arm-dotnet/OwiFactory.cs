@@ -1,18 +1,17 @@
-﻿namespace owi_arm_dotnet
+﻿namespace owi_arm_dotnet;
+
+/// <inheritdoc />
+public class OwiFactory : IOwiFactory
 {
     /// <inheritdoc />
-    public class OwiFactory : IOwiFactory
+    public IOwiArm CreateArm(IOwiUsbConnection owiUsbConnection)
     {
-        /// <inheritdoc />
-        public IOwiArm CreateArm(IOwiUsbConnection owiUsbConnection)
-        {
-            return new OwiArm(owiUsbConnection);
-        }
+        return new OwiArm(owiUsbConnection);
+    }
 
-        /// <inheritdoc />
-        public IOwiCommand CreateCommand()
-        {
-            return new OwiCommand();
-        }
+    /// <inheritdoc />
+    public IOwiCommand CreateCommand()
+    {
+        return new OwiCommand();
     }
 }

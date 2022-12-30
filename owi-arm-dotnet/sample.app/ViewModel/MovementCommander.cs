@@ -1,33 +1,29 @@
-﻿using owi_arm_dotnet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using owi_arm_dotnet;
 
-namespace sample.app.ViewModel
+namespace sample.app.ViewModel;
+
+internal class MovementCommander
 {
-    class MovementCommander
+    private readonly Action<IOwiCommand> leftMovement;
+    private readonly Action<IOwiCommand> neutralMovement;
+    private readonly Action<IOwiCommand> rightMovement;
+
+    public MovementCommander(Action<IOwiCommand> leftMovement, Action<IOwiCommand> neutralMovement,
+        Action<IOwiCommand> rightMovement)
     {
-        private Action<IOwiCommand> leftMovement;
-        private Action<IOwiCommand> neutralMovement;
-        private Action<IOwiCommand> rightMovement;
+        this.leftMovement = leftMovement;
+        this.neutralMovement = neutralMovement;
+        this.rightMovement = rightMovement;
+    }
 
-        public MovementCommander(Action<IOwiCommand> leftMovement, Action<IOwiCommand> neutralMovement, Action<IOwiCommand> rightMovement)
-        {
-            this.leftMovement = leftMovement;
-            this.neutralMovement = neutralMovement;
-            this.rightMovement = rightMovement;
-        }
-
-        public void ApplyMovement(int movement, IOwiCommand command)
-        {
-            if (movement == -1)
-                this.leftMovement.Invoke(command);
-            else if (movement == 1)
-                this.rightMovement.Invoke(command);
-            else
-                this.neutralMovement.Invoke(command);
-        }
+    public void ApplyMovement(int movement, IOwiCommand command)
+    {
+        if (movement == -1)
+            leftMovement.Invoke(command);
+        else if (movement == 1)
+            rightMovement.Invoke(command);
+        else
+            neutralMovement.Invoke(command);
     }
 }
