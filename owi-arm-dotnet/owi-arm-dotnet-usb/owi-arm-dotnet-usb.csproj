@@ -16,7 +16,7 @@
     <AssemblyVersion></AssemblyVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>OWI-007;OWI-535;Maplin;Robot;Arm;Robotic</PackageTags>
-    <Version>1.6.0</Version>
+    <Version>1.6.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
